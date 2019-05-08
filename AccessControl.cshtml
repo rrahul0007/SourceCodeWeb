@@ -1,0 +1,63 @@
+﻿@model  BlastManagerWEB.Models.Users.AccessControlOverviewModel
+@{
+    ViewBag.Title = "Access Control";
+}
+
+@section styles
+{
+    @Styles.Render("~/styles/zTree")
+}
+@section body
+{
+    <div id="divSearchContainer" class="page-header">
+        <fieldset>
+            <legend class="pageDisplayTitle">@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.AccessControl</legend>
+            <div style="background-color:White; overflow-y:auto;">
+                <ul id="treeviewLists" class="ztree"></ul>
+            </div>
+        </fieldset>
+    </div>
+    <div id="dialog" style="overflow: hidden; display:none;"></div>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/ztree")
+
+    <script language="javascript" type="text/javascript">
+        var currentPopupUrl = "";
+        $(document).ready(function(){
+            var setting =
+            {
+                check :
+                {
+                    enable : false
+                },
+                data :
+                {
+                    simpleData :
+                    {
+                        enable : true
+                    }
+                },
+                view :
+                {
+                    showIcon : false
+                }
+            };
+            var zNodes = @Html.Raw(Model.GetSiteMapsAsJsonString());
+            function setCheck(){
+                var zTree = $.fn.zTree.getZTreeObj("treeviewLists");
+                zTree.expandAll(false);
+            }
+            $.fn.zTree.init($("#treeviewLists"), setting, zNodes);
+            setCheck();
+
+            $("a[id^=treeviewLists_]").click(function(){
+                window.location.href = this.href;
+            });
+        });
+         $(".ztree").on("click", function(e) {
+            e.preventDefault();
+        });
+    </script>
+}

@@ -1,0 +1,224 @@
+﻿@model  BlastManagerWEB.Models.Users.AccessControlDetailModel
+@using Qilin.Core
+@using BlastManagerWEB.Common
+@using BlastManager.Service.Main.Common.CommonMainType
+
+@{
+    ViewBag.Title = "Manage Access Control";
+}
+@section styles
+{
+}
+@section body
+{
+    <div class="page-header">
+        @using (Html.BeginForm(Constants.Controllers.User_ManageAccessControl, Constants.Controllers.User, FormMethod.Post, new { @id = "frmManageaccesscontrol", @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.SiteMapId);
+            @Html.HiddenFor(m => m.UserRoleIdList);
+        <fieldset>
+            <legend>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.ManageAccessControl</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="SiteMapId">
+                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.SiteMapName:
+                </label>
+                <div class="col-sm-4">
+                    <p class="form-control-static">@Model.SiteMapName</p>
+                </div>
+                <label class="col-sm-2 control-label" for="Description">
+                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.AccessControlDescription:
+                </label>
+                <div class="col-sm-4">
+                    <p class="form-control-static">@Model.Description</p>
+                </div>
+                <label class="col-sm-2 control-label" for="Depth">
+                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Depth:
+                </label>
+                <div class="col-sm-4">
+                    <p class="form-control-static">@Model.Depth</p>
+                </div>
+                <label class="col-sm-2 control-label" for="MinimumRoleType">
+                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.MinimumRoleType:
+                </label>
+                <div class="col-sm-4">
+                    <p class="form-control-static">@Model.DicRoleType[StringHelper.ToString(Model.MinimumRoleType)]</p>
+                </div>
+            </div>
+            <div class="table-responsive well" style="margin-top: 10px; width: 50%;">
+                <table id="ugtable" class="table table-striped table-hover">
+                    <caption> User Group allowed to access this Site Map</caption>
+                    <thead>
+                        <tr>
+                            <th>
+                                @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupName
+                            </th>
+                            <th>
+                                @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.RoleType
+                            </th>
+                            <th>
+                                @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.UserGroups != null)
+                {
+                    foreach (var vg in Model.UserGroups)
+                    {
+                        <tr>
+                            @*Actually, we should use StringHelper.Trim() handle output*@
+                            <td>
+                                @vg.RoleName
+                            </td>
+                            <td>
+                                @Model.DicRoleType[StringHelper.ToString(vg.RoleType)]
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="javascript:;;" onclick="del(this);"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Remove</a>
+                            </td>
+                        </tr>
+            }
+        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="col-sm-4 control-label">@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupName</label>
+                <div class="col-sm-6">
+                    @Html.DropDownListFor(m => m.SelectedUserRoleId, Model.UserRoleDropdownList, new { @title = "User group", @id = "ugdropdownlist", @class = "form-control" })
+                </div>
+                <div class="col-sm-2">
+                    <input class="btn btn-info" type="button" value="Add" id="btnAdd" />
+                </div>
+            </div>
+            @*<div class="form-group col-sm-6">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="SelectedOrganizationId">
+                    <span class="required">*</span>Organization Name
+                </label>
+                <div class="col-sm-6">
+                    @Html.DropDownListFor(m => m.OrganizationGUID, Model.OrganizationDropdownList, new { @title = "Organization Name", @id = "OrganizationNamelist", @class = "form-control" })
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input class="btn btn-primary" type="submit" value="Save" onclick="saveUSR()" />
+                    <a class="btn btn-info" href='@Url.Action(Constants.Controllers.User_AccessControl, Constants.Controllers.User)'>
+                        <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Back
+                    </a>
+                </div>
+            </div>
+            <div class="summary-error">
+                @Html.ValidationSummary(false)
+            </div>
+        </fieldset>
+        }
+    </div>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $("button.btn").on("click", function (e) {
+            e.preventDefault();
+            //    validator.resetForm();
+            window.location.href = '@Url.Content("~/user/accesscontrol")';
+        });
+        $("#btnAdd").on("click", function (e) {
+            e.preventDefault();
+        });
+
+		var ugObj = @Html.Raw(Json.Encode(Model.DicUserRole));
+        var rtDic = @Html.Raw(Json.Encode(Model.DicRoleType));
+        $(document).on('click', '#btnAdd', add);
+        function add(){
+            var value = $('#ugdropdownlist').val();
+            if(value == ""){
+                return;
+            }
+
+            var tds = '<tr>';
+            var selusergroup = $('#ugdropdownlist :selected').text();
+            var delActionHtml = '<td><a class="btn btn-info" href="javascript:;;" onclick="del(this);"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remove</a></td>';
+
+            tds += '<td>' + selusergroup + '</td>';
+            tds += '<td>' + rtDic[ugObj[$('#ugdropdownlist').val()].RoleType] + '</td>';
+            tds += delActionHtml;
+            // tds += '<td style="display:none;">' + ugObj[$('#ugdropdownlist').val()].usergroupid + '</td>';
+            tds += '</tr>';
+
+            if($('tbody', "#ugtable").length > 0){
+                $('tbody', "#ugtable").append(tds);
+            }
+            else{
+                $(this).append(tds);
+            }
+            $("#ugdropdownlist option:selected").remove();
+            $("#ugdropdownlist").hide().show(); // Redraw the user groups dropdown list
+        }
+        $(document).ready(readyFn);
+        function readyFn(){
+            $('#ugtable > tbody > tr').each(function(){
+                var usergroupname = $.trim($(this).find("td:first").html());
+                var usergroupid = 0;
+                for(var key in ugObj){
+                    if(ugObj.hasOwnProperty(key)){
+                        if(ugObj[key].RoleName == usergroupname){
+                            usergroupid = ugObj[key].UserRoleId;
+                            break;
+                        }
+                    }
+                }
+                $('#ugdropdownlist option[value=' + usergroupid + ']').remove();
+            });
+        }
+
+        function del(obj){
+            var row = $(obj).closest("tr");
+            var usergroupname = $.trim($(row).find("td:first").html());
+            var usergroupid = 0;
+            for(var key in ugObj){
+                if(ugObj.hasOwnProperty(key)){
+                    if(ugObj[key].RoleName == usergroupname){
+                        usergroupid = ugObj[key].UserRoleId;
+                        break;
+                    }
+                }
+            }
+            $('#ugdropdownlist').append(new Option(usergroupname, usergroupid));
+            row.remove();
+        }
+        function saveUSR(){
+            var idlist = "";
+  
+            $('#ugtable > tbody > tr').each(function(){
+                var usergroupname = $.trim($(this).find("td:first").html());
+                var usergroupid = 0;
+                for(var key in ugObj){
+                    if(ugObj.hasOwnProperty(key)){
+                        if (ugObj[key].RoleName == usergroupname) {
+                          
+                            usergroupid = ugObj[key].UserRoleId;
+           
+                            break;
+                        }
+                    }
+                }
+                if(usergroupid != 0){
+                    idlist += usergroupid + ";";
+                }
+            });
+            if (idlist.length > 0) {
+                idlist = idlist.substring(0,idlist.length - 1); // Remove trailing semicolon
+            }
+            $("#UserRoleIdList").val(idlist);
+        }
+
+    </script>
+}
+
+

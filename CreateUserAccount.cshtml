@@ -1,0 +1,321 @@
+﻿@model BlastManagerWEB.Models.Users.UserDetailModel
+@using BlastManagerWEB.Common
+@using BlastManager.Service.Main.Common.CommonMainType
+@using Qilin.Core
+
+@{
+    ViewBag.Title = "Create User Account";
+}
+@section styles
+{
+}
+@section body
+{
+    <!--Search panel-->
+    <div class="page-header">
+        @using (Html.BeginForm(Constants.Controllers.User_CreateUserAccount, Constants.Controllers.User, FormMethod.Post, new { @id = "frmCreateUser", @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+        <fieldset>
+            <legend>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.CreateUserAccount</legend>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="SelectedOrganizationId">
+                    <span class="required">*</span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.OrganizationName
+                </label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.OrganizationGUID, Model.OrganizationDropdownList, new { @title = "Organization Name", @id = "OrganizationNamelist", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="UserId">
+                    <span class="required">*</span>     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserName
+                </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.UserId, new { @maxlength = "50", @class = "form-control", @title = "User Id", @placeholder = "User Id" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="UserLastName">
+                    <span class="required">*</span>     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserLastName
+                </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.UserLastName, new { @maxlength = "50", @class = "form-control", @title = "UserLastName", @placeholder = "UserLastName" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="UserName">
+                    <span class="required">*</span>     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserDisplayName
+                </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.UserName, new { @maxlength = "100", @class = "form-control", @title = "User Display Name", @placeholder = "User Display Name" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="Password">
+                    <span class="required">*</span>     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Password
+                </label>
+                <div class="col-sm-9">
+                    @Html.PasswordFor(m => m.Password, new { @maxlength = "30", @class = "form-control", @title = "Password", @placeholder = "Password", autocomplete = "off" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="ConfirmPassword">
+                    <span class="required">*</span>     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.ConfirmPassword
+                </label>
+                <div class="col-sm-9">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @maxlength = "30", @class = "form-control", @title = "Confirm Password", @placeholder = "Confirm Password", autocomplete = "off" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="Email">
+                    <span class="required">*</span>     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Email
+                </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Email, new { @maxlength = "100", @class = "form-control", @title = "Email", @placeholder = "Email" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="OfficeNumber">
+                    <span class="required">*</span>   @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.OfficeNumber
+                </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.OfficeNumber, new { @maxlength = "20", @class = "form-control", @title = "Office Number", @placeholder = "Office Number" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="RoleTypeId">
+
+                    <span class="required">*</span>IsActive
+                </label>
+                <div class="col-sm-9">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @title = "IsActive" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="IsDeptAdmin">
+                    <span class="required">*</span>   @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.IsDeptAdmin
+                </label>
+                <div class="col-sm-9">
+                    @Html.CheckBoxFor(m => m.IsDeptAdmin, new { @title = "Is Department Admin" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                <label class="col-sm-3 control-label" for="ChangePasswordNextLogin">
+                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.ChangePasswordNextLogin
+                </label>
+                <div class="col-sm-9">
+                    @Html.CheckBoxFor(m => m.ChangePasswordNextLogin, new { @title = "Change Password Next Login" })
+                </div>
+            </div>*@
+            @*<div class="form-group">
+                <label class="col-sm-3 control-label" for="PasswordNeverExpire">
+                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.PasswordNeverExpire
+                </label>
+                <div class="col-sm-9">
+                    @Html.CheckBoxFor(m => m.PasswordNeverExpire, new { @title = "Password Never Expire" })
+                </div>
+            </div>*@
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="Lanaguage">
+                    <span class="required">*</span>      @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.BlastManagerWebLanaguage
+                </label>
+                <div class="col-sm-9">
+
+                    @Html.DropDownListFor(m => m.BlastManagerWebSettingID, Model.BlastManagerWebSettingsDropdownList, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="table-responsive well">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span class="required">*</span>    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupName
+                            </th>
+                            <th>
+                                <span class="required">*</span>     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.UserGroupList != null && Model.UserGroupList.Count > 0)
+                {
+                    var selectedUG = StringHelper.Trim(Model.SelectedUserGroupIdList).Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var result in Model.UserGroupList)
+                    {
+                        <tr>
+                            <td>@Convert.ToString(result.RoleName)</td>
+                            <td>
+                                @if (selectedUG.Contains(Convert.ToString(result.UserRoleId)))
+                        {
+                            <input id="chk_@result.UserRoleId" name="chkUG" onclick="selectUG(this, 'chkUG');" type="checkbox" checked="checked" title="@result.RoleName" />
+                }
+                else
+                {
+                    <input id="chk_@result.UserRoleId" name="chkUG" onclick="selectUG(this, 'chkUG');" type="checkbox" title="@result.RoleName" />
+        }
+                            </td>
+                        </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">No User Group.</td>
+            </tr>
+}
+                    </tbody>
+                </table>
+            </div>
+            @Html.HiddenFor(m => m.SelectedUserGroupIdList)
+            @Html.HiddenFor(m => m.OrganizationGUID)
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                </label>
+                <div class="col-sm-9">
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                    <a class="btn btn-info" href='@Url.Action(Constants.Controllers.User_UserAccount, Constants.Controllers.User)'><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Back</a>
+                </div>
+            </div>
+            <div class="summary-error">
+                @Html.ValidationSummary(false)
+            </div>
+        </fieldset>
+        }
+    </div>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/password")
+    <script type="text/javascript">
+           $(document).ready(function () {
+            $.ajaxSetup({
+                global: false
+            });
+            Qilin.validate($("#frmCreateUser"), {
+                rules: {
+
+
+                    OrganizationGUID: {
+                        Qilin_required: true,
+                        Qilin_in: @Html.Raw(Json.Encode(
+                            Model.OrganizationDropdownList.Select(mt => mt.Value).ToList()
+                        ))
+                     },
+                    UserId: {
+                        Qilin_required: true,
+                        Qilin_maxLength: 50,
+                    },
+
+                    UserLastName: {
+                        Qilin_required: true,
+                        Qilin_maxLength: 50,
+                    },
+                    UserName: {
+                        Qilin_required: true,
+                        Qilin_maxLength: 100
+                    },
+                    Password: {
+                        Qilin_required: true,
+                        Qilin_passwordPolicy: true,
+                        Qilin_minLength: 8,
+                        Qilin_maxLength: 30,
+                        Qilin_notEqual: ["User Id", "UserId"]
+                    },
+                    ConfirmPassword: {
+                        Qilin_required: true,
+                        Qilin_passwordPolicy: true,
+                        Qilin_minLength: 8,
+                        Qilin_maxLength: 30,
+                        Qilin_notEqual: ["User Id", "UserId"],
+                        Qilin_equalTo: ["Password", "Password"]
+                    },
+                    Email: {
+                        Qilin_required: true,
+                        Qilin_Email: true,
+                        Qilin_maxLength: 100
+                    },
+                    OfficeNumber: {
+                        Qilin_required: true,
+                    },
+                    IsActive: {
+                        Qilin_required: true,
+                    },
+                    IsDeptAdmin: {
+                        Qilin_required: true,
+                    },
+                   
+                    BlastManagerWebSettingID: {
+                        Qilin_required: true,
+                    },
+
+                    UserRoleId: {
+                        Qilin_required: true,
+                    },
+                },
+                messages: {
+                    UserId: {
+                        Qilin_remote: Qilin.Res.RES_Error_Unique
+                    }
+                }
+            });
+
+            // Password strength meter
+            $('#Password').passwordStrengthMeter({
+                maxLength: 30,
+                events: {
+                    onCheckedResult: _showResult
+                },
+                blackList: [$("#UserId").val()]
+            });
+            $('#ConfirmPassword').passwordStrengthMeter({
+                maxLength: 30,
+                events: {
+                    onCheckedResult: _showResult
+                },
+                blackList: [$("#UserId").val()]
+            });
+        });
+        function _showResult(results) {
+            var meter = $("<div class=\"progress-bar\"></div>");
+            if (!results.grade) {
+                meter.html("<span class=\"sr-only\"></span>");
+            } else if (results.grade == 'weak') {
+                meter.addClass('progress-bar-danger').attr("title", "Weak").text("Weak"); // html('<span title=\"Weak\" class=\"sr-only\">Weak</span>');
+                meter.css("width", results.percentage * 100 + "%");
+            } else if (results.grade == 'medium') {
+                meter.addClass('progress-bar-warning').attr("title", "Medium").text("Medium"); //html('<span title=\"Medium\" class=\"sr-only\">Medium</span>');
+                meter.css("width", results.percentage * 100 + "%");
+            } else if (results.grade == 'strong') {
+                meter.addClass('progress-bar-info').attr("title", "Strong").text("Strong"); //html('<span title=\"Strong\" class=\"sr-only\">Strong</span>');
+                meter.css("width", results.percentage * 100 + "%");
+            } else if (results.grade == 'best') {
+                meter.addClass('progress-bar-success').attr("title", "Best").text("Best"); //html('<span title=\"Best\" class=\"sr-only\">Best</span>');
+                meter.css("width", results.percentage * 100 + "%");
+            } else {
+                meter.html("<span class=\"sr-only\"></span>");
+            }
+            $(results.owner).closest('.form-group').find("div.progress").html(meter);
+        }
+        function selectUG(obj, name) {
+            var _v = "";
+            var _chks = $("input:checkbox[name=" + name + "]");
+            var _len = _chks.length;
+            for (var i = 0; i < _len; i++) {
+                if (!!_chks[i].checked) {
+                    _v += _chks[i].id.replace("chk_", "") + ";";
+                }
+            }
+            $("#SelectedUserGroupIdList").val(_v);
+        }
+    </script>
+}
+
+
+

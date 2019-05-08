@@ -1,0 +1,96 @@
+﻿@model BlastManagerWEB.Models.Users.UserGroupDetailModel
+@using BlastManagerWEB.Common
+@using BlastManager.Service.Main.Common.CommonMainType
+@using Qilin.Core
+@{
+    ViewBag.Title = "Create User Group";
+}
+@section styles
+{
+}
+@section body
+{
+    <!--Search panel-->
+    <div class="page-header">
+        @using (Html.BeginForm(Constants.Controllers.Create_User_Group, Constants.Controllers.User, FormMethod.Post, new { @id = "frmCreateUserGroup", @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <legend>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.CreateUserGroup</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="UserGroupName">
+                        <span class="required">*</span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupName
+                    </label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(m => m.UserGroupName, new { @maxlength = "100", @class = "form-control", @title = "User Group Name", @placeholder = "User Group Name" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="RoleTypeId">
+
+                        <span class="required">*</span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.RoleType
+                    </label>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.RoleTypeId, Model.RoleTypeList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="Description">
+                        <span class="required">*</span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Description
+                    </label>
+                    <div class="col-sm-10">
+                        @Html.TextAreaFor(m => m.Description, new { @maxlength = "500", @class = "form-control", @rows = "5", @cols = "auto", @title = "Description", @placeholder = "Description" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    </label>
+                    <div class="col-sm-10">
+                        <input class="btn btn-primary" type="submit" value="Save" />
+                        <a class="btn btn-info" href='@Url.Action(Constants.Controllers.User_UserGroup, Constants.Controllers.User)'><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Back</a>
+                    </div>
+                </div>
+                <div class="summary-error">
+                    @Html.ValidationSummary(false)
+                </div>
+            </fieldset>
+        }
+    </div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajaxSetup({
+                global: false
+            });
+
+            Qilin.validate($("#frmCreateUserGroup"), {
+                rules: {
+                    UserGroupName: {
+                        Qilin_required: true,
+                        Qilin_maxLength: 100,
+                },
+                RoleTypeId: {
+                        Qilin_required: true,
+                        Qilin_in: @Html.Raw(Json.Encode(
+                            Model.RoleTypeList.Select(mt => mt.Value).ToList()
+                        ))
+                     },
+                    Description: {
+                        Qilin_required: true,
+                        Qilin_maxLength: 500
+                },
+                messages: {
+                    UserGroupName: {
+                        Qilin_remote: Qilin.Res.RES_Error_Unique
+                    }
+                    }
+                }
+                });
+        });
+    </script>
+}
+
+
+

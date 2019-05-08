@@ -1,0 +1,152 @@
+﻿@model  BlastManagerWEB.Models.Users.UserOverviewModel
+@using Qilin.Core
+@using BlastManagerWEB.Common
+@using BlastManager.Service.Main.Common.CommonMainType
+@{
+    ViewBag.Title = "User Account";
+}
+@section styles
+{
+}
+@section body
+{
+    <!--Search panel-->
+    <div class="page-header">
+        @using (Html.BeginForm(Constants.Controllers.User_UserAccount, Constants.Controllers.User, FormMethod.Get, new { @id = "frmUser", @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <legend>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserAccountOverview</legend>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="UserId">
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserId
+                    </label>
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(m => m.UserId, new { @maxlength = "50", @class = "form-control", @title = "User Id", @placeholder = "User Id" })
+                    </div>
+                    <label class="col-sm-2 control-label">
+                    </label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="UserName">
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserDisplayName
+                    </label>
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(m => m.UserName, new { @maxlength = "100", @class = "form-control", @title = "User Display Name", @placeholder = "User Display Name" })
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="btn btn-primary" value="Search" type="submit" />
+                    </div>
+                </div>
+                <div class="summary-error">
+                    @Html.ValidationSummary(false)
+                </div>
+            </fieldset>
+        }
+    </div>
+    <!--Search result-->
+    <div>
+        @if ((Utilities.MaxRoleType == RoleType.SystemAdmin || Utilities.MaxRoleType == RoleType.UserAdmin))
+        {
+            <a class="btn btn-info" href='@Url.Action(Constants.Controllers.User_CreateUserAccount, Constants.Controllers.User)'><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.CreateUserAccount</a>
+        }
+        @Html.Partial("_Pager", Model.Pagers)
+    </div>
+    <div class="table-responsive well">
+        @if (Model.Pagers != null && Model.Pagers.Total > 0)
+        {
+            <span>Page Size: @Constants.PageSize, Page @Model.Pagers.CurrentPage of @Model.Pagers.TotalPages (@Model.Pagers.Total items)</span>
+        }
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserId
+                    </th>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserDisplayName
+                    </th>
+
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.IsDeptAdmin
+                    </th>
+
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Language
+                    </th>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.LastLogonDateTime
+                    </th>
+
+                    <th>
+                        Created By
+                    </th>
+                    <th>
+                        Created Date
+                    </th>
+
+                    <th>
+                        Updated By
+                    </th>
+                    <th>
+                        Updated Date
+                    </th>
+                    <th>
+                        User Is Active
+                    </th>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SearchResult != null && Model.SearchResult.Count > 0)
+                {
+                    foreach (var result in Model.SearchResult)
+                    {
+                        <tr>
+                            <td>@StringHelper.Trim(result.UserName)</td>
+                            <td>@StringHelper.Trim(result.UserDisplayName)</td>
+                            <td>@StringHelper.Trim(result.IsDeptAdmin)</td>
+                            <td>@Utilities.GetSystemTypeName(Constants.SystemTypeCategory.Language, result.Language)</td>
+                            <td>@(result.LastLogonDate)</td>
+                            <td>@(result.CreatedBy)</td>
+                            <td>@(result.CreatedDate)</td>
+                            <td>@(result.UpdatedBy)</td>
+                            <td>@(result.UpdatedDate)</td>
+                            <td>@(result.IsActive)</td>
+                            <td>
+                                @if ((Utilities.MaxRoleType == RoleType.SystemAdmin))
+                                {
+                                    <a class="btn btn-info" href="@Url.Action(Constants.Controllers.User_ManageUserAccount, Constants.Controllers.User, new { id = result.UserName })"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.ManageUserAccount</a>
+                                }
+                                else
+                                {
+                                    if ((Utilities.MaxRoleType == RoleType.NormalUser) || (Utilities.MaxRoleType == RoleType.RigUser))
+                                    {
+                                        <a class="btn btn-info" href="@Url.Action(Constants.Controllers.User_ManageUserAccount, Constants.Controllers.User, new { id = result.UserName })"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.ManageUserAccount</a>
+                                    }
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">No Record Found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        @if ((Utilities.MaxRoleType == RoleType.SystemAdmin || Utilities.MaxRoleType == RoleType.UserAdmin))
+        {
+            <a class="btn btn-info" href='@Url.Action(Constants.Controllers.User_CreateUserAccount, Constants.Controllers.User)'><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.CreateUserAccount</a>
+        }
+        @Html.Partial("_Pager", Model.Pagers)
+    </div>
+}
+

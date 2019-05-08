@@ -1,0 +1,244 @@
+﻿@model BlastManagerWEB.Models.Users.UserDetailModel
+@using Qilin.Core
+@using BlastManagerWEB.Common
+@using BlastManager.Service.Main.Common.CommonMainType
+
+@{
+    ViewBag.Title = "Manage User Account";
+}
+@section styles
+{
+}
+@section body
+{
+    <!--Search panel-->
+    <div class="page-header">
+        @using (Html.BeginForm(Constants.Controllers.User_ManageUserAccount, Constants.Controllers.User, FormMethod.Post, new { @id = "frmManageUser", @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.UserId)
+            <fieldset>
+                <legend>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.ManageUserAccount</legend>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="SelectedOrganizationId">
+                     @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.OrganizationName
+                    </label>
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(m => m.OrganizationGUID, Model.OrganizationDropdownList, new { @title = "Organization Name", @id = "OrganizationNamelist", @class = "form-control" })
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="UserId">
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserId
+                        </label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">@Model.UserId</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="UserName">
+                       @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserDisplayName
+                        </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.UserName, new { @maxlength = "100", @class = "form-control", @title = "User Display Name", @placeholder = "User Display Name" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="Email">
+                       @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Email
+                        </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.Email, new { @maxlength = "100", @class = "form-control", @title = "Email", @placeholder = "Email" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="OfficeNumber">
+                            @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.OfficeNumber
+                        </label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.OfficeNumber, new { @maxlength = "20", @class = "form-control", @title = "Office Number", @placeholder = "Office Number" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="IsDeptAdmin">
+                            @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.IsDeptAdmin
+                        </label>
+                        <div class="col-sm-9">
+                            @Html.CheckBoxFor(m => m.IsDeptAdmin, new { @title = "Is Department Admin" })
+                        </div>
+                    </div>
+                           <div class="form-group">
+                <label class="col-sm-3 control-label" for="RoleTypeId">
+
+               IsActive
+                </label>
+                <div class="col-sm-9">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @title = "IsActive" })
+                </div>
+            </div>
+
+                    @*<div class="form-group">
+                        <label class="col-sm-3 control-label" for="ChangePasswordNextLogin">
+                            Change Password Next Login
+                        </label>
+                        <div class="col-sm-9">
+                            @Html.CheckBoxFor(m => m.ChangePasswordNextLogin, new { @title = "Change Password Next Login" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="PasswordNeverExpire">
+                            Password Never Expire
+                        </label>
+                        <div class="col-sm-9">
+                            @Html.CheckBoxFor(m => m.PasswordNeverExpire, new { @title = "Password Never Expire" })
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="Lanaguage">
+                         @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.BlastManagerWebLanaguage
+                        </label>
+                        <div class="col-sm-9">
+
+                            @Html.DropDownListFor(m => m.BlastManagerWebSettingID, Model.BlastManagerWebSettingsDropdownList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserCreatedBy
+                        </label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">@Model.CreatedBy</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserCreatedDate
+                        </label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">@Model.CreatedDate</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserUpdatedBy
+                        </label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">@Model.UpdatedBy</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserUpdatedDate
+                        </label>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">@Model.UpdatedDate</p>
+                        </div>
+                    </div>
+                <div class="table-responsive well">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupName
+                                </th>
+                                <th>
+                                    @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.UserGroupList != null && Model.UserGroupList.Count > 0)
+                            {
+                                var selectedUG = StringHelper.Trim(Model.SelectedUserGroupIdList).Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                foreach (var result in Model.UserGroupList)
+                                {
+                                    <tr>
+                                        <td>@StringHelper.Trim(result.RoleName)</td>
+                                        <td>
+                                            @if (selectedUG.Contains(StringHelper.ToString(result.UserRoleId)))
+                                            {
+                                                <input id="chk_@result.UserRoleId" name="chkUG" onclick="selectUG(this, 'chkUG');" type="checkbox" checked="checked" title="@result.RoleName" />
+                                            }
+                                            else
+                                            {
+                                                <input id="chk_@result.UserRoleId" name="chkUG" onclick="selectUG(this, 'chkUG');" type="checkbox" title="@result.RoleName" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="2">No User Group.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @Html.HiddenFor(m => m.SelectedUserGroupIdList)
+                @if (Utilities.CompareRoleTypeWithEqual(RoleType.SystemAdmin, Utilities.MaxRoleType)
+    || (!Constants.WindowsAuthentication && Model.UserId == Qilin.Web.Core.Common.AuthorityManager.CurrentUser.UserId))
+                {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                        </label>
+                        <div class="col-sm-9">
+                            <input class="btn btn-primary" type="submit" value="Save" />
+                            <a class="btn btn-info" href='@Url.Action(Constants.Controllers.User_UserAccount, Constants.Controllers.User)'><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Back</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                        </label>
+                        <div class="col-sm-9">
+                            <a class="btn btn-info" href='@Url.Action(Constants.Controllers.User_UserAccount, Constants.Controllers.User)'><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.Back</a>
+                        </div>
+                    </div>
+                }
+                <div class="summary-error">
+                    @Html.ValidationSummary(false)
+                </div>
+            </fieldset>
+        }
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        function selectUG(obj, name) {
+            var _v = "";
+            var _chks = $("input:checkbox[name=" + name + "]");
+            var _len = _chks.length;
+            for (var i = 0; i < _len; i++) {
+                if (!!_chks[i].checked) {
+                    _v = _chks[i].id.replace("chk_", "") + ";";
+                    _v = _v.replace(";", "");
+
+                    if (!$("input:checkbox[name=" + name + "]").is(':checked')) {
+                        alert("aaa")
+                        alert("Please check at least one.");
+                        return false;
+                    }
+                    //if (i == 0)
+                    //{
+                    //    alert(i)
+                    //    $("input#_chks" + _v).prop("checked", true);
+                    //}
+                    //else if (i != 0 && $("input#chk_" + _v).prop("checked", true)) 
+                    //{
+                    //    alert("vvv")
+                    //    $("input#chk_" + _v).prop("checked", false);
+                    //    }
+                    }
+            }
+            $("#SelectedUserGroupIdList").val(_v);
+            }
+    </script>
+}

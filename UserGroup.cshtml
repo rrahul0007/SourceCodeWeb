@@ -1,0 +1,179 @@
+﻿@using BlastManager.Service.Main.Common.CommonMainType
+@model BlastManagerWEB.Models.Users.UserGroupOverviewModel
+@using BlastManagerWEB.Common
+@using Qilin.Core
+@{
+    ViewBag.Title = "User Group";
+}
+@section styles
+{
+}
+
+@section body
+{
+
+    <!--Search panel-->
+    <div class="page-header">
+        @using (Html.BeginForm(Constants.Controllers.User_UserGroup, Constants.Controllers.User, FormMethod.Get, new { @id = "frmUserGroup", @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <legend>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupOverview</legend>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 control-label" for="UserGroupName">
+                        @Html.LabelFor(model => model.UserGroupName)
+                    </label>
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.UserGroupName, new { @maxlength = "100", @class = "form-control", @title = "User Group Name", @placeholder = "User Group Name" })
+                    </div>
+                    <label class="col-sm-2 control-label">
+                    </label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 control-label" for="RoleTypeId">
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.RoleType
+                    </label>
+                    <div class="col-sm-6">
+                        @Html.DropDownListFor(m => m.RoleTypeId, Model.RoleTypeList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="btn btn-primary" value="Search" type="submit" />
+                    </div>
+                </div>
+                <div class="summary-error">
+                    @Html.ValidationSummary(false)
+                </div>
+            </fieldset>
+        }
+    </div>
+    <!--Search result-->
+    <div>
+
+        @if ((Utilities.MaxRoleType == RoleType.SystemAdmin || Utilities.MaxRoleType == RoleType.UserAdmin))
+        {
+        <a class="btn btn-info" href='@Url.Action(Constants.Controllers.Create_User_Group, Constants.Controllers.User)'><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.CreateUserGroup</a>
+         }
+
+
+    @*@Html.ActionLink(@BlastManagerWEB.Properties.Resources.French, "ChangeLanguage", "Users", new { SelectedLanguage = "bn" }, new { @class = "btn btn-default" })*@
+
+        @Html.Partial("_Pager", Model.Pagers)
+    </div>
+    <div class="table-responsive well">
+        @if (Model.Pagers != null && Model.Pagers.Total > 0)
+        {
+            <span>Page Size: @Constants.PageSize, Page @Model.Pagers.CurrentPage of @Model.Pagers.TotalPages (@Model.Pagers.Total items)</span>
+        }
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupName
+                    </th>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.RoleType
+                    </th>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupUpdatedBy
+                    </th>
+                    <th>
+                        @BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.UserGroupUpdatedDate
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.SearchResult != null && Model.SearchResult.Count > 0)
+                {
+                    foreach (var result in Model.SearchResult)
+                    {
+                        <tr>
+                            <td>@Convert.ToString(result.RoleName)</td>
+                            <td>@Utilities.GetSystemTypeName(Constants.SystemTypeCategory.RoleType, result.RoleType)</td>
+                            <td>@Utilities.GetUserDisplayName(result.UpdatedBy)</td>
+                            <td>@(string.IsNullOrWhiteSpace(result.UpdatedBy) ? string.Empty : Convert.ToString(result.UpdatedDate))</td>
+                            <td>
+                                @if ((Utilities.MaxRoleType == RoleType.SystemAdmin))
+                                {
+                            <a class="btn btn-info" href="@Url.Action(Constants.Controllers.User_ManageUserGroup, Constants.Controllers.User, new { id = result.UserRoleId })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Manage</a>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No Record Found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        @if ((Utilities.MaxRoleType == RoleType.SystemAdmin || Utilities.MaxRoleType == RoleType.UserAdmin))
+        {
+        <a class="btn btn-info" href='@Url.Action(Constants.Controllers.Create_User_Group, Constants.Controllers.User)'><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>@BlastManagerWEB.App_GlobalResources.BlastManagerWebResources.CreateUserGroup</a>
+         }
+
+        @Html.Partial("_Pager", Model.Pagers)
+    </div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Qilin.validate($("#frmUserGroup"), {
+                rules: {
+                    UserGroupName: {
+                        Qilin_maxLength: 100
+                    },
+                    RoleTypeId: {
+                        Qilin_in: @Html.Raw(Json.Encode(
+                            Model.RoleTypeList.Select(mt => mt.Value).ToList()
+                        ))
+                    }
+                }
+            });
+        });
+
+        function del(id) {
+            Qilin.UI.confirm({
+                "okCallback": function () {
+                    $.ajax({
+                        "url": '@Url.Action(Constants.Controllers.User_DeleteUserGroup, Constants.Controllers.User)/' + encodeURIComponent(id),
+                        "type": "Post",
+                        "data": {
+                            __RequestVerificationToken: window._token
+                        },
+                        "error": function () {
+                            Qilin.UI.alert({
+                                "msg": Qilin.Res.RES_Error_Delete,
+                                "btnName": Qilin.Res.RES_Info_OKButton,
+                                "title": Qilin.Res.RES_Info_Alert
+                            });
+                        },
+                        "success": function (msg) {
+                            Qilin.UI.alert({
+                                "callback": function () {
+                                    window.location.reload(true);
+                                },
+                                "msg": msg || Qilin.Res.RES_Success_Delete,
+                                "btnName": Qilin.Res.RES_Info_OKButton,
+                                "title": Qilin.Res.RES_Info_Alert
+                            });
+                        }
+                    });
+                },
+                "msg": Qilin.Res.RES_Info_Confirm,
+                "okBtnName": Qilin.Res.RES_Info_OKButton,
+                "cancelBtnName": Qilin.Res.RES_Info_CancelButton,
+                "title": Qilin.Res.RES_Info_Confirm
+            });
+        }
+    </script>
+
+}
