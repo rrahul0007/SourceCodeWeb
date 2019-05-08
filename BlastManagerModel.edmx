@@ -1,0 +1,2569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BlastManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditLogDetails">
+          <Key>
+            <PropertyRef Name="AuditLogDetailID" />
+          </Key>
+          <Property Name="AuditLogDetailID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AduitLogID" Type="bigint" Nullable="false" />
+          <Property Name="ColumnName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OriginalValue" Type="nvarchar(max)" />
+          <Property Name="NewValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AuditLogs">
+          <Key>
+            <PropertyRef Name="AduitLogID" />
+          </Key>
+          <Property Name="AduitLogID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EventDate" Type="datetime" Nullable="false" />
+          <Property Name="EventType" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BlastingEngineers">
+          <Key>
+            <PropertyRef Name="BE_GUID" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sprengberechtigung" Type="nvarchar" MaxLength="90" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="PLZ_Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="Street_Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="Site_Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="BE_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Fromd" Type="nvarchar" MaxLength="90" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="BlastProject">
+          <Key>
+            <PropertyRef Name="Blast_GUID" />
+          </Key>
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quarry" Type="nvarchar" MaxLength="50" />
+          <Property Name="Blastingengineer" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectFolder" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProjectTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Volume" Type="real" />
+          <Property Name="Drillmeters" Type="real" />
+          <Property Name="TotalCosts" Type="real" />
+          <Property Name="CostsExpl" Type="real" />
+          <Property Name="CostsDet" Type="real" />
+          <Property Name="plannedBurden" Type="real" />
+          <Property Name="HoleDistance" Type="real" />
+          <Property Name="MO6File" Type="nvarchar" MaxLength="255" />
+          <Property Name="QDEFile" Type="nvarchar" MaxLength="255" />
+          <Property Name="specEcCalc" Type="real" />
+          <Property Name="exWeight" Type="real" />
+          <Property Name="HoleDia" Type="real" />
+          <Property Name="DateOfBlast" Type="datetime" />
+          <Property Name="MSL" Type="nvarchar" MaxLength="255" />
+          <Property Name="BenchInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Bohrlochtiefe" Type="real" />
+          <Property Name="Unterbohrung" Type="real" />
+          <Property Name="SprengungDurchgefuehrt" Type="bit" Nullable="false" />
+          <Property Name="RowSeparation" Type="real" />
+          <Property Name="Overburden" Type="real" />
+          <Property Name="CriticalBurden" Type="real" />
+          <Property Name="BurdenToReport" Type="real" />
+          <Property Name="PlannedSpecEx" Type="real" />
+          <Property Name="BMH" Type="real" />
+          <Property Name="BMV" Type="real" />
+          <Property Name="Tolerance" Type="real" />
+          <Property Name="SearchWidth" Type="real" />
+          <Property Name="RockDensity" Type="real" />
+          <Property Name="CostsDrilling" Type="real" />
+          <Property Name="CostsAdditional" Type="real" />
+          <Property Name="Year" Type="int" />
+          <Property Name="RocktypeNew" Type="nvarchar" MaxLength="255" />
+          <Property Name="MIC" Type="real" />
+          <Property Name="Complaints" Type="bit" Nullable="false" />
+          <Property Name="Blast_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Client_GUID" Type="uniqueidentifier" />
+          <Property Name="Quarry_GUID" Type="uniqueidentifier" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Clients_GUID" />
+          </Key>
+          <Property Name="Kunde" Type="nvarchar" MaxLength="50" />
+          <Property Name="Clients_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="CodeListInternal">
+          <Key>
+            <PropertyRef Name="InternalCode" />
+          </Key>
+          <Property Name="InternalCode" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="DE" Type="nvarchar" MaxLength="255" />
+          <Property Name="EN" Type="nvarchar" MaxLength="255" />
+          <Property Name="SWE" Type="nvarchar" MaxLength="255" />
+          <Property Name="CZ" Type="nvarchar" MaxLength="255" />
+          <Property Name="PL" Type="nvarchar" MaxLength="255" />
+          <Property Name="ES" Type="nvarchar" MaxLength="255" />
+          <Property Name="NO" Type="nvarchar" MaxLength="255" />
+          <Property Name="RU" Type="nvarchar" MaxLength="255" />
+          <Property Name="FR" Type="nvarchar" MaxLength="255" />
+          <Property Name="CN" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CodePage">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Erklärung" Type="nvarchar" MaxLength="50" />
+          <Property Name="TargetHT" Type="real" />
+          <Property Name="InternalCode" Type="int" />
+          <Property Name="LineWidth" Type="smallint" />
+          <Property Name="PtSize" Type="smallint" />
+          <Property Name="col" Type="nvarchar" MaxLength="255" />
+          <Property Name="ColLines" Type="nvarchar" MaxLength="255" />
+          <Property Name="MaxLineLength" Type="real" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="CostsDetonator">
+          <Key>
+            <PropertyRef Name="DetonatorID" />
+          </Key>
+          <Property Name="DetonatorID" Type="int" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="real" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="CostsDualDelay">
+          <Key>
+            <PropertyRef Name="DualDelayID" />
+          </Key>
+          <Property Name="DualDelayID" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Costs" Type="real" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="CostsEx">
+          <Key>
+            <PropertyRef Name="EXplosivID" />
+          </Key>
+          <Property Name="EXplosivID" Type="int" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="real" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Fuellgrad" Type="real" />
+          <Property Name="Color" Type="nvarchar" MaxLength="50" />
+          <Property Name="PrimerUse" Type="bit" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Costsretarder">
+          <Key>
+            <PropertyRef Name="RetarderID" />
+          </Key>
+          <Property Name="RetarderID" Type="int" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="real" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" MaxLength="255" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="DBVersion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DBVer" Type="int" />
+        </EntityType>
+        <EntityType Name="Detonators">
+          <Key>
+            <PropertyRef Name="DetonatorID" />
+          </Key>
+          <Property Name="DetonatorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DetonatorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Delay" Type="real" Nullable="false" />
+          <Property Name="Manufacturer" Type="int" />
+          <Property Name="Length" Type="real" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="TypeC" Type="smallint" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Kosten" Type="real" />
+          <Property Name="FaktorBrennGeschw" Type="real" />
+        </EntityType>
+        <EntityType Name="DetonatorType">
+          <Key>
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="TypeLong" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DetonatorTypeC">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="int" Nullable="false" />
+          <Property Name="TypeCLong" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DetonatorTypeC_EN">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="int" Nullable="false" />
+          <Property Name="TypeCLong" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Drillers">
+          <Key>
+            <PropertyRef Name="Drillers_GUID" />
+          </Key>
+          <Property Name="DrillerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Drillers_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="DrillRigContractor">
+          <Key>
+            <PropertyRef Name="DrillRigContractor_GUID" />
+          </Key>
+          <Property Name="DrillRigContractorName" Type="nvarchar" MaxLength="255" />
+          <Property Name="DrillRigContractor_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="DrillRigs">
+          <Key>
+            <PropertyRef Name="DrillRigs_GUID" />
+          </Key>
+          <Property Name="RigName" Type="nvarchar" MaxLength="255" />
+          <Property Name="DrillRigs_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="DualDelay">
+          <Key>
+            <PropertyRef Name="DualDelayID" />
+          </Key>
+          <Property Name="DualDelayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DualDelayName" Type="nvarchar" MaxLength="80" />
+          <Property Name="Manufacturer" Type="int" />
+          <Property Name="Length" Type="real" />
+          <Property Name="NominelleZuendzt" Type="real" />
+          <Property Name="Verzoegerungszeit" Type="int" />
+          <Property Name="FaktorBrenngeschwindigkeit" Type="real" />
+        </EntityType>
+        <EntityType Name="ExGrößen">
+          <Key>
+            <PropertyRef Name="DetailID" />
+          </Key>
+          <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExplosivID" Type="int" />
+          <Property Name="Diameter" Type="real" />
+          <Property Name="length" Type="real" />
+          <Property Name="Gewicht" Type="real" />
+        </EntityType>
+        <EntityType Name="Explosives">
+          <Key>
+            <PropertyRef Name="ExplosivID" />
+          </Key>
+          <Property Name="ExplosivID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Manufact" Type="int" />
+          <Property Name="Velocity" Type="float" />
+          <Property Name="ExType" Type="int" />
+          <Property Name="Dichte" Type="real" />
+          <Property Name="DichteVar" Type="real" />
+          <Property Name="Fuellgrad" Type="real" />
+          <Property Name="Volume" Type="int" />
+          <Property Name="Energiedichte" Type="real" />
+          <Property Name="Ident" Type="nvarchar" MaxLength="50" />
+          <Property Name="Class" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpecEnergy" Type="real" />
+          <Property Name="ExWaerme" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="real" />
+          <Property Name="UNNo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ExType">
+          <Key>
+            <PropertyRef Name="ExTypeID" />
+          </Key>
+          <Property Name="ExTypeLong" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'usrdb.dbo.FileVersion_QD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="FileVersion_QD">
+          <Property Name="Version" Type="smallint" />
+        </EntityType>-->
+        <EntityType Name="Lager">
+          <Key>
+            <PropertyRef Name="Lager_GUID" />
+          </Key>
+          <Property Name="LagerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LagerContactPerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="LagerContactPersonEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="LagerContactPersonPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lager_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Supplier_GUID" Type="uniqueidentifier" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Lieferant">
+          <Key>
+            <PropertyRef Name="Lieferant_GUID" />
+          </Key>
+          <Property Name="LName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LStrasse" Type="nvarchar" MaxLength="50" />
+          <Property Name="LPLZ" Type="nvarchar" MaxLength="50" />
+          <Property Name="LOrt" Type="nvarchar" MaxLength="50" />
+          <Property Name="LFax" Type="nvarchar" MaxLength="50" />
+          <Property Name="LTel" Type="nvarchar" MaxLength="50" />
+          <Property Name="LContactPerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="LContactPersonEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="LContactPersonPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lieferant_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Manufact">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organisations">
+          <Key>
+            <PropertyRef Name="Organisation_GUID" />
+          </Key>
+          <Property Name="OrganisationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrganisationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PasswordHistories">
+          <Key>
+            <PropertyRef Name="PasswordHistoryId" />
+          </Key>
+          <Property Name="PasswordHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID_User" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PricingInvoices">
+          <Key>
+            <PropertyRef Name="PriceID" />
+          </Key>
+          <Property Name="PriceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserPrice" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="RigUserPrince" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PriceFileStorageGB" Type="float" Nullable="false" />
+          <Property Name="OneOffFee" Type="float" Nullable="false" />
+          <Property Name="InvoicingPeriod" Type="int" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quarries">
+          <Key>
+            <PropertyRef Name="Quarry_GUID" />
+          </Key>
+          <Property Name="QuarryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="PLZ" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ort" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gesteinsdichte" Type="real" />
+          <Property Name="Suchweite" Type="real" />
+          <Property Name="BM_V" Type="real" />
+          <Property Name="BM_H" Type="real" />
+          <Property Name="PlannedBurden" Type="real" />
+          <Property Name="criticalBurden" Type="real" />
+          <Property Name="Tolerance" Type="real" />
+          <Property Name="berichtspflVorgabe" Type="real" />
+          <Property Name="HoleDia" Type="real" />
+          <Property Name="specEx" Type="real" />
+          <Property Name="RockType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kochk" Type="real" />
+          <Property Name="Kochb" Type="real" />
+          <Property Name="Kochm" Type="real" />
+          <Property Name="RowSeparation" Type="real" />
+          <Property Name="Overburden" Type="real" />
+          <Property Name="HoleDistance" Type="real" />
+          <Property Name="CostsPerDrillMeter" Type="real" />
+          <Property Name="QuarryManagerPath" Type="nvarchar" MaxLength="255" />
+          <Property Name="CritLocEX" Type="real" />
+          <Property Name="CritLowCharge" Type="real" />
+          <Property Name="Quarry_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Client_GUID" Type="uniqueidentifier" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+          <Property Name="DefaultStemming" Type="real" />
+          <Property Name="DefaultSubDrill" Type="real" />
+          <Property Name="DefaultAngle" Type="real" />
+        </EntityType>
+        <EntityType Name="Retarder">
+          <Key>
+            <PropertyRef Name="RetarderID" />
+          </Key>
+          <Property Name="RetarderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CableLength" Type="real" />
+          <Property Name="DelayTime" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Manufacturer" Type="int" />
+          <Property Name="TypeC" Type="int" />
+          <Property Name="Kosten" Type="real" />
+          <Property Name="FaktorSchlauchVerz" Type="real" />
+        </EntityType>
+        <EntityType Name="RetarderDelays">
+          <Key>
+            <PropertyRef Name="RetarderDetailID" />
+          </Key>
+          <Property Name="RetarderID" Type="int" />
+          <Property Name="Delay" Type="real" />
+          <Property Name="RetarderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RetarderTypeC">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="int" Nullable="false" />
+          <Property Name="TypeCLong" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RetarderTypeC_EN">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="int" Nullable="false" />
+          <Property Name="TypeCLong" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SiteMaps">
+          <Key>
+            <PropertyRef Name="SiteMapId" />
+          </Key>
+          <Property Name="SiteMapId" Type="int" Nullable="false" />
+          <Property Name="SiteMapTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="OrderBy" Type="int" Nullable="false" />
+          <Property Name="Depth" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="MapPath" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MinimumRoleType" Type="int" Nullable="false" />
+          <Property Name="ApplicationId" Type="smallint" Nullable="false" />
+          <Property Name="ShowInMenu" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sprenghelfer">
+          <Key>
+            <PropertyRef Name="Sprenghelfer_GUID" />
+          </Key>
+          <Property Name="HelferID" Type="int" />
+          <Property Name="Vorname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Nachname" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CostsPerHour" Type="real" />
+          <Property Name="Sprenghelfer_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Stations">
+          <Key>
+            <PropertyRef Name="Station_GUID" />
+          </Key>
+          <Property Name="StationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="X" Type="float" />
+          <Property Name="Y" Type="float" />
+          <Property Name="Z" Type="float" />
+          <Property Name="Station_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Quarry_GUID" Type="uniqueidentifier" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Surveyors">
+          <Key>
+            <PropertyRef Name="Surveyor_GUID" />
+          </Key>
+          <Property Name="SurveyorName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Surveyor_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'usrdb.dbo.SyncCredentials' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SyncCredentials">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="WinUsrName" />
+            <PropertyRef Name="SQLusr" />
+            <PropertyRef Name="SQLpwd" />
+            <PropertyRef Name="AzureFileUsr" />
+            <PropertyRef Name="AzureFilepwd" />
+            <PropertyRef Name="OrganisationGUID" />
+            <PropertyRef Name="AzureServerName" />
+            <PropertyRef Name="AzureDatabaseName" />
+            <PropertyRef Name="LocalRootPath" />
+            <PropertyRef Name="RemoteRootPath" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WinUsrName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SQLusr" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SQLpwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AzureFileUsr" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AzureFilepwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrganisationGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SyncTimeInterval" Type="int" />
+          <Property Name="AzureServerName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="AzureDatabaseName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LocalRootPath" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RemoteRootPath" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemTypes">
+          <Key>
+            <PropertyRef Name="SystemTypeId" />
+          </Key>
+          <Property Name="SystemTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeKey" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_UserRole">
+          <Key>
+            <PropertyRef Name="UserRoles_UserRoleId" />
+            <PropertyRef Name="Users_GUID_User" />
+          </Key>
+          <Property Name="UserRoles_UserRoleId" Type="int" Nullable="false" />
+          <Property Name="Users_GUID_User" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActivities">
+          <Key>
+            <PropertyRef Name="UserActivityID" />
+          </Key>
+          <Property Name="UserActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="GUID_User" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLogActivities">
+          <Key>
+            <PropertyRef Name="UserLoginLogId" />
+          </Key>
+          <Property Name="UserLoginLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LoginFrom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoginDateTime" Type="datetime" Nullable="false" />
+          <Property Name="LogoutDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsADGroup" Type="bit" Nullable="false" />
+          <Property Name="RoleType" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserRoleSiteMaps">
+          <Key>
+            <PropertyRef Name="SiteMaps_SiteMapId" />
+            <PropertyRef Name="UserRoles_UserRoleId" />
+          </Key>
+          <Property Name="SiteMaps_SiteMapId" Type="int" Nullable="false" />
+          <Property Name="UserRoles_UserRoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="GUID_User" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID_User" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="real" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserDisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeptAdmin" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="LastLogonDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDisabled" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Language" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VibMeasurements">
+          <Key>
+            <PropertyRef Name="VibMeasurement_GUID" />
+          </Key>
+          <Property Name="Vib_LocX" Type="float" />
+          <Property Name="Vib_LocY" Type="float" />
+          <Property Name="Vib_LocZ" Type="float" />
+          <Property Name="Vib_Distance2D" Type="real" />
+          <Property Name="Vib_DistanceVert" Type="real" />
+          <Property Name="Vib_Lademenge" Type="real" />
+          <Property Name="Vib_Hole" Type="nvarchar" MaxLength="255" />
+          <Property Name="Vib_Xmm" Type="real" />
+          <Property Name="Vib_Ymm" Type="real" />
+          <Property Name="Vib_Zmm" Type="real" />
+          <Property Name="Vib_X_Frequ" Type="real" />
+          <Property Name="Vib_Y_Frequ" Type="real" />
+          <Property Name="Vib_Z_Frequ" Type="real" />
+          <Property Name="Vib_VRmm" Type="real" />
+          <Property Name="Vib_VR_Freq" Type="real" />
+          <Property Name="Vib_Site" Type="nvarchar" MaxLength="255" />
+          <Property Name="Vib_SiteID" Type="int" />
+          <Property Name="BlastRef" Type="nvarchar" MaxLength="255" />
+          <Property Name="dB" Type="real" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Time" Type="datetime" />
+          <Property Name="VibMeasurement_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Blast_GUID" Type="uniqueidentifier" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="VibrationMeasDev">
+          <Key>
+            <PropertyRef Name="VibDev_GUID" />
+          </Key>
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeviceSN" Type="nvarchar" MaxLength="255" />
+          <Property Name="LastCalibrated" Type="datetime" />
+          <Property Name="TriggerValue" Type="real" />
+          <Property Name="VibDev_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="VibrationMeasurementSites">
+          <Key>
+            <PropertyRef Name="VibSite_GUID" />
+          </Key>
+          <Property Name="Site" Type="nvarchar" MaxLength="255" />
+          <Property Name="SiteDetail" Type="nvarchar" MaxLength="255" />
+          <Property Name="X" Type="float" />
+          <Property Name="Y" Type="float" />
+          <Property Name="Z" Type="float" />
+          <Property Name="VibSite_GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Quarry_GUID" Type="uniqueidentifier" />
+          <Property Name="Organisation_GUID" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="BlastProject_FK00">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="BlastProject" Type="Self.BlastProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Clients_GUID" />
+            </Principal>
+            <Dependent Role="BlastProject">
+              <PropertyRef Name="Client_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BlastProject_FK01">
+          <End Role="Quarries" Type="Self.Quarries" Multiplicity="0..1" />
+          <End Role="BlastProject" Type="Self.BlastProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarries">
+              <PropertyRef Name="Quarry_GUID" />
+            </Principal>
+            <Dependent Role="BlastProject">
+              <PropertyRef Name="Quarry_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__CC747E9F31D68045_Organisation_GUID">
+          <End Role="Organisations" Type="Self.Organisations" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisations">
+              <PropertyRef Name="Organisation_GUID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Organisation_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PricingInvoice_Organisation_GUID">
+          <End Role="Organisations" Type="Self.Organisations" Multiplicity="1" />
+          <End Role="PricingInvoices" Type="Self.PricingInvoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisations">
+              <PropertyRef Name="Organisation_GUID" />
+            </Principal>
+            <Dependent Role="PricingInvoices">
+              <PropertyRef Name="Organisation_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserRole_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="User_UserRole" Type="Self.User_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="UserRoleId" />
+            </Principal>
+            <Dependent Role="User_UserRole">
+              <PropertyRef Name="UserRoles_UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserRole_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="User_UserRole" Type="Self.User_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="GUID_User" />
+            </Principal>
+            <Dependent Role="User_UserRole">
+              <PropertyRef Name="Users_GUID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_FK_GUID_ID">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserActivities" Type="Self.UserActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="GUID_User" />
+            </Principal>
+            <Dependent Role="UserActivities">
+              <PropertyRef Name="GUID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPasswordHistory">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="PasswordHistories" Type="Self.PasswordHistories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="GUID_User" />
+            </Principal>
+            <Dependent Role="PasswordHistories">
+              <PropertyRef Name="GUID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleSiteMaps_SiteMaps">
+          <End Role="SiteMaps" Type="Self.SiteMaps" Multiplicity="1" />
+          <End Role="UserRoleSiteMaps" Type="Self.UserRoleSiteMaps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SiteMaps">
+              <PropertyRef Name="SiteMapId" />
+            </Principal>
+            <Dependent Role="UserRoleSiteMaps">
+              <PropertyRef Name="SiteMaps_SiteMapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleSiteMaps_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="UserRoleSiteMaps" Type="Self.UserRoleSiteMaps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="UserRoleId" />
+            </Principal>
+            <Dependent Role="UserRoleSiteMaps">
+              <PropertyRef Name="UserRoles_UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Lager_FK00">
+          <End Role="Lieferant" Type="Self.Lieferant" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lager" Type="Self.Lager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lieferant">
+              <PropertyRef Name="Lieferant_GUID" />
+            </Principal>
+            <Dependent Role="Lager">
+              <PropertyRef Name="Supplier_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Stations_FK00">
+          <End Role="Quarries" Type="Self.Quarries" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stations" Type="Self.Stations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarries">
+              <PropertyRef Name="Quarry_GUID" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="Quarry_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VibMeasurements_FK00">
+          <End Role="BlastProject" Type="Self.BlastProject" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VibMeasurements" Type="Self.VibMeasurements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlastProject">
+              <PropertyRef Name="Blast_GUID" />
+            </Principal>
+            <Dependent Role="VibMeasurements">
+              <PropertyRef Name="Blast_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VibrationMeasurementSites_FK00">
+          <End Role="Quarries" Type="Self.Quarries" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VibrationMeasurementSites" Type="Self.VibrationMeasurementSites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarries">
+              <PropertyRef Name="Quarry_GUID" />
+            </Principal>
+            <Dependent Role="VibrationMeasurementSites">
+              <PropertyRef Name="Quarry_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BlastManagerModelStoreContainer">
+          <EntitySet Name="AuditLogDetails" EntityType="Self.AuditLogDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditLogs" EntityType="Self.AuditLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlastingEngineers" EntityType="Self.BlastingEngineers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlastProject" EntityType="Self.BlastProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeListInternal" EntityType="Self.CodeListInternal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodePage" EntityType="Self.CodePage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CostsDetonator" EntityType="Self.CostsDetonator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CostsDualDelay" EntityType="Self.CostsDualDelay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CostsEx" EntityType="Self.CostsEx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Costsretarder" EntityType="Self.Costsretarder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DBVersion" EntityType="Self.DBVersion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detonators" EntityType="Self.Detonators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetonatorType" EntityType="Self.DetonatorType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetonatorTypeC" EntityType="Self.DetonatorTypeC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetonatorTypeC_EN" EntityType="Self.DetonatorTypeC_EN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drillers" EntityType="Self.Drillers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrillRigContractor" EntityType="Self.DrillRigContractor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DrillRigs" EntityType="Self.DrillRigs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DualDelay" EntityType="Self.DualDelay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExGrößen" EntityType="Self.ExGrößen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Explosives" EntityType="Self.Explosives" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExType" EntityType="Self.ExType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lager" EntityType="Self.Lager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lieferant" EntityType="Self.Lieferant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufact" EntityType="Self.Manufact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organisations" EntityType="Self.Organisations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PasswordHistories" EntityType="Self.PasswordHistories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PricingInvoices" EntityType="Self.PricingInvoices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quarries" EntityType="Self.Quarries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retarder" EntityType="Self.Retarder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RetarderDelays" EntityType="Self.RetarderDelays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RetarderTypeC" EntityType="Self.RetarderTypeC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RetarderTypeC_EN" EntityType="Self.RetarderTypeC_EN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SiteMaps" EntityType="Self.SiteMaps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sprenghelfer" EntityType="Self.Sprenghelfer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stations" EntityType="Self.Stations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Surveyors" EntityType="Self.Surveyors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemTypes" EntityType="Self.SystemTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_UserRole" EntityType="Self.User_UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActivities" EntityType="Self.UserActivities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogActivities" EntityType="Self.UserLogActivities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleSiteMaps" EntityType="Self.UserRoleSiteMaps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VibMeasurements" EntityType="Self.VibMeasurements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VibrationMeasDev" EntityType="Self.VibrationMeasDev" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VibrationMeasurementSites" EntityType="Self.VibrationMeasurementSites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SyncCredentials" EntityType="Self.SyncCredentials" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SyncCredentials].[id] AS [id], 
+    [SyncCredentials].[WinUsrName] AS [WinUsrName], 
+    [SyncCredentials].[SQLusr] AS [SQLusr], 
+    [SyncCredentials].[SQLpwd] AS [SQLpwd], 
+    [SyncCredentials].[AzureFileUsr] AS [AzureFileUsr], 
+    [SyncCredentials].[AzureFilepwd] AS [AzureFilepwd], 
+    [SyncCredentials].[OrganisationGUID] AS [OrganisationGUID], 
+    [SyncCredentials].[SyncTimeInterval] AS [SyncTimeInterval], 
+    [SyncCredentials].[AzureServerName] AS [AzureServerName], 
+    [SyncCredentials].[AzureDatabaseName] AS [AzureDatabaseName], 
+    [SyncCredentials].[LocalRootPath] AS [LocalRootPath], 
+    [SyncCredentials].[RemoteRootPath] AS [RemoteRootPath]
+    FROM [dbo].[SyncCredentials] AS [SyncCredentials]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="BlastProject_FK00" Association="Self.BlastProject_FK00">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="BlastProject" EntitySet="BlastProject" />
+          </AssociationSet>
+          <AssociationSet Name="BlastProject_FK01" Association="Self.BlastProject_FK01">
+            <End Role="Quarries" EntitySet="Quarries" />
+            <End Role="BlastProject" EntitySet="BlastProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__CC747E9F31D68045_Organisation_GUID" Association="Self.FK__Users__CC747E9F31D68045_Organisation_GUID">
+            <End Role="Organisations" EntitySet="Organisations" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PricingInvoice_Organisation_GUID" Association="Self.FK_PricingInvoice_Organisation_GUID">
+            <End Role="Organisations" EntitySet="Organisations" />
+            <End Role="PricingInvoices" EntitySet="PricingInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserRole_UserRoles" Association="Self.FK_User_UserRole_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="User_UserRole" EntitySet="User_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserRole_Users" Association="Self.FK_User_UserRole_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_UserRole" EntitySet="User_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_FK_GUID_ID" Association="Self.FK_UserActivity_FK_GUID_ID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActivities" EntitySet="UserActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPasswordHistory" Association="Self.FK_UserPasswordHistory">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PasswordHistories" EntitySet="PasswordHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleSiteMaps_SiteMaps" Association="Self.FK_UserRoleSiteMaps_SiteMaps">
+            <End Role="SiteMaps" EntitySet="SiteMaps" />
+            <End Role="UserRoleSiteMaps" EntitySet="UserRoleSiteMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleSiteMaps_UserRoles" Association="Self.FK_UserRoleSiteMaps_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="UserRoleSiteMaps" EntitySet="UserRoleSiteMaps" />
+          </AssociationSet>
+          <AssociationSet Name="Lager_FK00" Association="Self.Lager_FK00">
+            <End Role="Lieferant" EntitySet="Lieferant" />
+            <End Role="Lager" EntitySet="Lager" />
+          </AssociationSet>
+          <AssociationSet Name="Stations_FK00" Association="Self.Stations_FK00">
+            <End Role="Quarries" EntitySet="Quarries" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="VibMeasurements_FK00" Association="Self.VibMeasurements_FK00">
+            <End Role="BlastProject" EntitySet="BlastProject" />
+            <End Role="VibMeasurements" EntitySet="VibMeasurements" />
+          </AssociationSet>
+          <AssociationSet Name="VibrationMeasurementSites_FK00" Association="Self.VibrationMeasurementSites_FK00">
+            <End Role="Quarries" EntitySet="Quarries" />
+            <End Role="VibrationMeasurementSites" EntitySet="VibrationMeasurementSites" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlastManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuditLogDetail">
+          <Key>
+            <PropertyRef Name="AuditLogDetailID" />
+          </Key>
+          <Property Name="AuditLogDetailID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AduitLogID" Type="Int64" Nullable="false" />
+          <Property Name="ColumnName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OriginalValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AduitLogID" />
+          </Key>
+          <Property Name="AduitLogID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BlastingEngineer">
+          <Key>
+            <PropertyRef Name="BE_GUID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sprengberechtigung" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PLZ_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Site_Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BE_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Fromd" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="BlastProject">
+          <Key>
+            <PropertyRef Name="Blast_GUID" />
+          </Key>
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quarry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Blastingengineer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectFolder" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Volume" Type="Single" />
+          <Property Name="Drillmeters" Type="Single" />
+          <Property Name="TotalCosts" Type="Single" />
+          <Property Name="CostsExpl" Type="Single" />
+          <Property Name="CostsDet" Type="Single" />
+          <Property Name="plannedBurden" Type="Single" />
+          <Property Name="HoleDistance" Type="Single" />
+          <Property Name="MO6File" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="QDEFile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="specEcCalc" Type="Single" />
+          <Property Name="exWeight" Type="Single" />
+          <Property Name="HoleDia" Type="Single" />
+          <Property Name="DateOfBlast" Type="DateTime" Precision="3" />
+          <Property Name="MSL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BenchInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Bohrlochtiefe" Type="Single" />
+          <Property Name="Unterbohrung" Type="Single" />
+          <Property Name="SprengungDurchgefuehrt" Type="Boolean" Nullable="false" />
+          <Property Name="RowSeparation" Type="Single" />
+          <Property Name="Overburden" Type="Single" />
+          <Property Name="CriticalBurden" Type="Single" />
+          <Property Name="BurdenToReport" Type="Single" />
+          <Property Name="PlannedSpecEx" Type="Single" />
+          <Property Name="BMH" Type="Single" />
+          <Property Name="BMV" Type="Single" />
+          <Property Name="Tolerance" Type="Single" />
+          <Property Name="SearchWidth" Type="Single" />
+          <Property Name="RockDensity" Type="Single" />
+          <Property Name="CostsDrilling" Type="Single" />
+          <Property Name="CostsAdditional" Type="Single" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="RocktypeNew" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MIC" Type="Single" />
+          <Property Name="Complaints" Type="Boolean" Nullable="false" />
+          <Property Name="Blast_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Client_GUID" Type="Guid" />
+          <Property Name="Quarry_GUID" Type="Guid" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <NavigationProperty Name="Client" Relationship="Self.BlastProject_FK00" FromRole="BlastProject" ToRole="Clients" />
+          <NavigationProperty Name="Quarry1" Relationship="Self.BlastProject_FK01" FromRole="BlastProject" ToRole="Quarries" />
+          <NavigationProperty Name="VibMeasurements" Relationship="Self.VibMeasurements_FK00" FromRole="BlastProject" ToRole="VibMeasurements" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Clients_GUID" />
+          </Key>
+          <Property Name="Kunde" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Clients_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <NavigationProperty Name="BlastProjects" Relationship="Self.BlastProject_FK00" FromRole="Clients" ToRole="BlastProject" />
+        </EntityType>
+        <EntityType Name="CodeListInternal">
+          <Key>
+            <PropertyRef Name="InternalCode" />
+          </Key>
+          <Property Name="InternalCode" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SWE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CZ" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ES" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RU" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CodePage">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Erklärung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TargetHT" Type="Single" />
+          <Property Name="InternalCode" Type="Int32" />
+          <Property Name="LineWidth" Type="Int16" />
+          <Property Name="PtSize" Type="Int16" />
+          <Property Name="col" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ColLines" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaxLineLength" Type="Single" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="CostsDetonator">
+          <Key>
+            <PropertyRef Name="DetonatorID" />
+          </Key>
+          <Property Name="DetonatorID" Type="Int32" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="Single" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="CostsDualDelay">
+          <Key>
+            <PropertyRef Name="DualDelayID" />
+          </Key>
+          <Property Name="DualDelayID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Costs" Type="Single" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="CostsEx">
+          <Key>
+            <PropertyRef Name="EXplosivID" />
+          </Key>
+          <Property Name="EXplosivID" Type="Int32" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="Single" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Fuellgrad" Type="Single" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrimerUse" Type="Boolean" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="Costsretarder">
+          <Key>
+            <PropertyRef Name="RetarderID" />
+          </Key>
+          <Property Name="RetarderID" Type="Int32" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="Single" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Color" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="DBVersion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBVer" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Detonator">
+          <Key>
+            <PropertyRef Name="DetonatorID" />
+          </Key>
+          <Property Name="DetonatorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DetonatorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Delay" Type="Single" Nullable="false" />
+          <Property Name="Manufacturer" Type="Int32" />
+          <Property Name="Length" Type="Single" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="TypeC" Type="Int16" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Kosten" Type="Single" />
+          <Property Name="FaktorBrennGeschw" Type="Single" />
+        </EntityType>
+        <EntityType Name="DetonatorType">
+          <Key>
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="TypeLong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DetonatorTypeC">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="Int32" Nullable="false" />
+          <Property Name="TypeCLong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DetonatorTypeC_EN">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="Int32" Nullable="false" />
+          <Property Name="TypeCLong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Driller">
+          <Key>
+            <PropertyRef Name="Drillers_GUID" />
+          </Key>
+          <Property Name="DrillerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Drillers_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="DrillRigContractor">
+          <Key>
+            <PropertyRef Name="DrillRigContractor_GUID" />
+          </Key>
+          <Property Name="DrillRigContractorName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DrillRigContractor_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="DrillRig">
+          <Key>
+            <PropertyRef Name="DrillRigs_GUID" />
+          </Key>
+          <Property Name="RigName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DrillRigs_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="DualDelay">
+          <Key>
+            <PropertyRef Name="DualDelayID" />
+          </Key>
+          <Property Name="DualDelayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DualDelayName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Manufacturer" Type="Int32" />
+          <Property Name="Length" Type="Single" />
+          <Property Name="NominelleZuendzt" Type="Single" />
+          <Property Name="Verzoegerungszeit" Type="Int32" />
+          <Property Name="FaktorBrenngeschwindigkeit" Type="Single" />
+        </EntityType>
+        <EntityType Name="ExGrößen">
+          <Key>
+            <PropertyRef Name="DetailID" />
+          </Key>
+          <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExplosivID" Type="Int32" />
+          <Property Name="Diameter" Type="Single" />
+          <Property Name="length" Type="Single" />
+          <Property Name="Gewicht" Type="Single" />
+        </EntityType>
+        <EntityType Name="Explosive">
+          <Key>
+            <PropertyRef Name="ExplosivID" />
+          </Key>
+          <Property Name="ExplosivID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Manufact" Type="Int32" />
+          <Property Name="Velocity" Type="Double" />
+          <Property Name="ExType" Type="Int32" />
+          <Property Name="Dichte" Type="Single" />
+          <Property Name="DichteVar" Type="Single" />
+          <Property Name="Fuellgrad" Type="Single" />
+          <Property Name="Volume" Type="Int32" />
+          <Property Name="Energiedichte" Type="Single" />
+          <Property Name="Ident" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpecEnergy" Type="Single" />
+          <Property Name="ExWaerme" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CostsPerUnit" Type="Single" />
+          <Property Name="UNNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ExType">
+          <Key>
+            <PropertyRef Name="ExTypeID" />
+          </Key>
+          <Property Name="ExTypeLong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExTypeID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lager">
+          <Key>
+            <PropertyRef Name="Lager_GUID" />
+          </Key>
+          <Property Name="LagerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LagerContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LagerContactPersonEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LagerContactPersonPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lager_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Supplier_GUID" Type="Guid" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <NavigationProperty Name="Lieferant" Relationship="Self.Lager_FK00" FromRole="Lager" ToRole="Lieferant" />
+        </EntityType>
+        <EntityType Name="Lieferant">
+          <Key>
+            <PropertyRef Name="Lieferant_GUID" />
+          </Key>
+          <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LStrasse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LPLZ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LOrt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LFax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LTel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LContactPersonEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LContactPersonPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lieferant_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <NavigationProperty Name="Lagers" Relationship="Self.Lager_FK00" FromRole="Lieferant" ToRole="Lager" />
+        </EntityType>
+        <EntityType Name="Manufact">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organisation">
+          <Key>
+            <PropertyRef Name="Organisation_GUID" />
+          </Key>
+          <Property Name="OrganisationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrganisationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Organisation_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__CC747E9F31D68045_Organisation_GUID" FromRole="Organisations" ToRole="Users" />
+          <NavigationProperty Name="PricingInvoices" Relationship="Self.FK_PricingInvoice_Organisation_GUID" FromRole="Organisations" ToRole="PricingInvoices" />
+        </EntityType>
+        <EntityType Name="PasswordHistory">
+          <Key>
+            <PropertyRef Name="PasswordHistoryId" />
+          </Key>
+          <Property Name="PasswordHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID_User" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserPasswordHistory" FromRole="PasswordHistories" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PricingInvoice">
+          <Key>
+            <PropertyRef Name="PriceID" />
+          </Key>
+          <Property Name="PriceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="RigUserPrince" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PriceFileStorageGB" Type="Double" Nullable="false" />
+          <Property Name="OneOffFee" Type="Double" Nullable="false" />
+          <Property Name="InvoicingPeriod" Type="Int32" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Organisation" Relationship="Self.FK_PricingInvoice_Organisation_GUID" FromRole="PricingInvoices" ToRole="Organisations" />
+        </EntityType>
+        <EntityType Name="Quarry">
+          <Key>
+            <PropertyRef Name="Quarry_GUID" />
+          </Key>
+          <Property Name="QuarryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PLZ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gesteinsdichte" Type="Single" />
+          <Property Name="Suchweite" Type="Single" />
+          <Property Name="BM_V" Type="Single" />
+          <Property Name="BM_H" Type="Single" />
+          <Property Name="PlannedBurden" Type="Single" />
+          <Property Name="criticalBurden" Type="Single" />
+          <Property Name="Tolerance" Type="Single" />
+          <Property Name="berichtspflVorgabe" Type="Single" />
+          <Property Name="HoleDia" Type="Single" />
+          <Property Name="specEx" Type="Single" />
+          <Property Name="RockType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kochk" Type="Single" />
+          <Property Name="Kochb" Type="Single" />
+          <Property Name="Kochm" Type="Single" />
+          <Property Name="RowSeparation" Type="Single" />
+          <Property Name="Overburden" Type="Single" />
+          <Property Name="HoleDistance" Type="Single" />
+          <Property Name="CostsPerDrillMeter" Type="Single" />
+          <Property Name="QuarryManagerPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CritLocEX" Type="Single" />
+          <Property Name="CritLowCharge" Type="Single" />
+          <Property Name="Quarry_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Client_GUID" Type="Guid" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <Property Name="DefaultStemming" Type="Single" />
+          <Property Name="DefaultSubDrill" Type="Single" />
+          <Property Name="DefaultAngle" Type="Single" />
+          <NavigationProperty Name="BlastProjects" Relationship="Self.BlastProject_FK01" FromRole="Quarries" ToRole="BlastProject" />
+          <NavigationProperty Name="Stations" Relationship="Self.Stations_FK00" FromRole="Quarries" ToRole="Stations" />
+          <NavigationProperty Name="VibrationMeasurementSites" Relationship="Self.VibrationMeasurementSites_FK00" FromRole="Quarries" ToRole="VibrationMeasurementSites" />
+        </EntityType>
+        <EntityType Name="Retarder">
+          <Key>
+            <PropertyRef Name="RetarderID" />
+          </Key>
+          <Property Name="RetarderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CableLength" Type="Single" />
+          <Property Name="DelayTime" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Manufacturer" Type="Int32" />
+          <Property Name="TypeC" Type="Int32" />
+          <Property Name="Kosten" Type="Single" />
+          <Property Name="FaktorSchlauchVerz" Type="Single" />
+        </EntityType>
+        <EntityType Name="RetarderDelay">
+          <Key>
+            <PropertyRef Name="RetarderDetailID" />
+          </Key>
+          <Property Name="RetarderID" Type="Int32" />
+          <Property Name="Delay" Type="Single" />
+          <Property Name="RetarderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="RetarderTypeC">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="Int32" Nullable="false" />
+          <Property Name="TypeCLong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RetarderTypeC_EN">
+          <Key>
+            <PropertyRef Name="TypeC" />
+          </Key>
+          <Property Name="TypeC" Type="Int32" Nullable="false" />
+          <Property Name="TypeCLong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SiteMap">
+          <Key>
+            <PropertyRef Name="SiteMapId" />
+          </Key>
+          <Property Name="SiteMapId" Type="Int32" Nullable="false" />
+          <Property Name="SiteMapTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderBy" Type="Int32" Nullable="false" />
+          <Property Name="Depth" Type="Int32" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="MapPath" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MinimumRoleType" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationId" Type="Int16" Nullable="false" />
+          <Property Name="ShowInMenu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.UserRoleSiteMaps" FromRole="SiteMaps" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="Sprenghelfer">
+          <Key>
+            <PropertyRef Name="Sprenghelfer_GUID" />
+          </Key>
+          <Property Name="HelferID" Type="Int32" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CostsPerHour" Type="Single" />
+          <Property Name="Sprenghelfer_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="Station_GUID" />
+          </Key>
+          <Property Name="StationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="Z" Type="Double" />
+          <Property Name="Station_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Quarry_GUID" Type="Guid" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <NavigationProperty Name="Quarry" Relationship="Self.Stations_FK00" FromRole="Stations" ToRole="Quarries" />
+        </EntityType>
+        <EntityType Name="Surveyor">
+          <Key>
+            <PropertyRef Name="Surveyor_GUID" />
+          </Key>
+          <Property Name="SurveyorName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Surveyor_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="SystemType">
+          <Key>
+            <PropertyRef Name="SystemTypeId" />
+          </Key>
+          <Property Name="SystemTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeKey" Type="Int32" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActivity">
+          <Key>
+            <PropertyRef Name="UserActivityID" />
+          </Key>
+          <Property Name="UserActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GUID_User" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserActivity_FK_GUID_ID" FromRole="UserActivities" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserLogActivity">
+          <Key>
+            <PropertyRef Name="UserLoginLogId" />
+          </Key>
+          <Property Name="UserLoginLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="LoginFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LogoutDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsADGroup" Type="Boolean" Nullable="false" />
+          <Property Name="RoleType" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="Self.User_UserRole" FromRole="UserRoles" ToRole="Users" />
+          <NavigationProperty Name="SiteMaps" Relationship="Self.UserRoleSiteMaps" FromRole="UserRoles" ToRole="SiteMaps" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="GUID_User" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID_User" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Single" />
+          <Property Name="Organisation_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserDisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeptAdmin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLogonDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDisabled" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Language" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Organisation" Relationship="Self.FK__Users__CC747E9F31D68045_Organisation_GUID" FromRole="Users" ToRole="Organisations" />
+          <NavigationProperty Name="PasswordHistories" Relationship="Self.FK_UserPasswordHistory" FromRole="Users" ToRole="PasswordHistories" />
+          <NavigationProperty Name="UserActivities" Relationship="Self.FK_UserActivity_FK_GUID_ID" FromRole="Users" ToRole="UserActivities" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.User_UserRole" FromRole="Users" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="VibMeasurement">
+          <Key>
+            <PropertyRef Name="VibMeasurement_GUID" />
+          </Key>
+          <Property Name="Vib_LocX" Type="Double" />
+          <Property Name="Vib_LocY" Type="Double" />
+          <Property Name="Vib_LocZ" Type="Double" />
+          <Property Name="Vib_Distance2D" Type="Single" />
+          <Property Name="Vib_DistanceVert" Type="Single" />
+          <Property Name="Vib_Lademenge" Type="Single" />
+          <Property Name="Vib_Hole" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Vib_Xmm" Type="Single" />
+          <Property Name="Vib_Ymm" Type="Single" />
+          <Property Name="Vib_Zmm" Type="Single" />
+          <Property Name="Vib_X_Frequ" Type="Single" />
+          <Property Name="Vib_Y_Frequ" Type="Single" />
+          <Property Name="Vib_Z_Frequ" Type="Single" />
+          <Property Name="Vib_VRmm" Type="Single" />
+          <Property Name="Vib_VR_Freq" Type="Single" />
+          <Property Name="Vib_Site" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Vib_SiteID" Type="Int32" />
+          <Property Name="BlastRef" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dB" Type="Single" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="VibMeasurement_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Blast_GUID" Type="Guid" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <NavigationProperty Name="BlastProject" Relationship="Self.VibMeasurements_FK00" FromRole="VibMeasurements" ToRole="BlastProject" />
+        </EntityType>
+        <EntityType Name="VibrationMeasDev">
+          <Key>
+            <PropertyRef Name="VibDev_GUID" />
+          </Key>
+          <Property Name="DeviceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LastCalibrated" Type="DateTime" Precision="3" />
+          <Property Name="TriggerValue" Type="Single" />
+          <Property Name="VibDev_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="VibrationMeasurementSite">
+          <Key>
+            <PropertyRef Name="VibSite_GUID" />
+          </Key>
+          <Property Name="Site" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SiteDetail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="Z" Type="Double" />
+          <Property Name="VibSite_GUID" Type="Guid" Nullable="false" />
+          <Property Name="Quarry_GUID" Type="Guid" />
+          <Property Name="Organisation_GUID" Type="Guid" />
+          <NavigationProperty Name="Quarry" Relationship="Self.VibrationMeasurementSites_FK00" FromRole="VibrationMeasurementSites" ToRole="Quarries" />
+        </EntityType>
+        <EntityType Name="SyncCredential">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="WinUsrName" />
+            <PropertyRef Name="SQLusr" />
+            <PropertyRef Name="SQLpwd" />
+            <PropertyRef Name="AzureFileUsr" />
+            <PropertyRef Name="AzureFilepwd" />
+            <PropertyRef Name="OrganisationGUID" />
+            <PropertyRef Name="AzureServerName" />
+            <PropertyRef Name="AzureDatabaseName" />
+            <PropertyRef Name="LocalRootPath" />
+            <PropertyRef Name="RemoteRootPath" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WinUsrName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SQLusr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SQLpwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AzureFileUsr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AzureFilepwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrganisationGUID" Type="Guid" Nullable="false" />
+          <Property Name="SyncTimeInterval" Type="Int32" />
+          <Property Name="AzureServerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AzureDatabaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocalRootPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RemoteRootPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="BlastProject_FK00">
+          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="BlastProject" Type="Self.BlastProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Clients_GUID" />
+            </Principal>
+            <Dependent Role="BlastProject">
+              <PropertyRef Name="Client_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BlastProject_FK01">
+          <End Role="Quarries" Type="Self.Quarry" Multiplicity="0..1" />
+          <End Role="BlastProject" Type="Self.BlastProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarries">
+              <PropertyRef Name="Quarry_GUID" />
+            </Principal>
+            <Dependent Role="BlastProject">
+              <PropertyRef Name="Quarry_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VibMeasurements_FK00">
+          <End Role="BlastProject" Type="Self.BlastProject" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VibMeasurements" Type="Self.VibMeasurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlastProject">
+              <PropertyRef Name="Blast_GUID" />
+            </Principal>
+            <Dependent Role="VibMeasurements">
+              <PropertyRef Name="Blast_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Lager_FK00">
+          <End Role="Lieferant" Type="Self.Lieferant" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lager" Type="Self.Lager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lieferant">
+              <PropertyRef Name="Lieferant_GUID" />
+            </Principal>
+            <Dependent Role="Lager">
+              <PropertyRef Name="Supplier_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__CC747E9F31D68045_Organisation_GUID">
+          <End Role="Organisations" Type="Self.Organisation" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisations">
+              <PropertyRef Name="Organisation_GUID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Organisation_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PricingInvoice_Organisation_GUID">
+          <End Role="Organisations" Type="Self.Organisation" Multiplicity="1" />
+          <End Role="PricingInvoices" Type="Self.PricingInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisations">
+              <PropertyRef Name="Organisation_GUID" />
+            </Principal>
+            <Dependent Role="PricingInvoices">
+              <PropertyRef Name="Organisation_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPasswordHistory">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="PasswordHistories" Type="Self.PasswordHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="GUID_User" />
+            </Principal>
+            <Dependent Role="PasswordHistories">
+              <PropertyRef Name="GUID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Stations_FK00">
+          <End Role="Quarries" Type="Self.Quarry" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stations" Type="Self.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarries">
+              <PropertyRef Name="Quarry_GUID" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="Quarry_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VibrationMeasurementSites_FK00">
+          <End Role="Quarries" Type="Self.Quarry" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VibrationMeasurementSites" Type="Self.VibrationMeasurementSite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarries">
+              <PropertyRef Name="Quarry_GUID" />
+            </Principal>
+            <Dependent Role="VibrationMeasurementSites">
+              <PropertyRef Name="Quarry_GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_FK_GUID_ID">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserActivities" Type="Self.UserActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="GUID_User" />
+            </Principal>
+            <Dependent Role="UserActivities">
+              <PropertyRef Name="GUID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_UserRole">
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="UserRoleSiteMaps">
+          <End Role="SiteMaps" Type="Self.SiteMap" Multiplicity="*" />
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BlastManager" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuditLogDetails" EntityType="Self.AuditLogDetail" />
+          <EntitySet Name="AuditLogs" EntityType="Self.AuditLog" />
+          <EntitySet Name="BlastingEngineers" EntityType="Self.BlastingEngineer" />
+          <EntitySet Name="BlastProjects" EntityType="Self.BlastProject" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="CodeListInternals" EntityType="Self.CodeListInternal" />
+          <EntitySet Name="CodePages" EntityType="Self.CodePage" />
+          <EntitySet Name="CostsDetonators" EntityType="Self.CostsDetonator" />
+          <EntitySet Name="CostsDualDelays" EntityType="Self.CostsDualDelay" />
+          <EntitySet Name="CostsExes" EntityType="Self.CostsEx" />
+          <EntitySet Name="Costsretarders" EntityType="Self.Costsretarder" />
+          <EntitySet Name="DBVersions" EntityType="Self.DBVersion" />
+          <EntitySet Name="Detonators" EntityType="Self.Detonator" />
+          <EntitySet Name="DetonatorTypes" EntityType="Self.DetonatorType" />
+          <EntitySet Name="DetonatorTypeCs" EntityType="Self.DetonatorTypeC" />
+          <EntitySet Name="DetonatorTypeC_EN" EntityType="Self.DetonatorTypeC_EN" />
+          <EntitySet Name="Drillers" EntityType="Self.Driller" />
+          <EntitySet Name="DrillRigContractors" EntityType="Self.DrillRigContractor" />
+          <EntitySet Name="DrillRigs" EntityType="Self.DrillRig" />
+          <EntitySet Name="DualDelays" EntityType="Self.DualDelay" />
+          <EntitySet Name="ExGrößen" EntityType="Self.ExGrößen" />
+          <EntitySet Name="Explosives" EntityType="Self.Explosive" />
+          <EntitySet Name="ExTypes" EntityType="Self.ExType" />
+          <EntitySet Name="Lagers" EntityType="Self.Lager" />
+          <EntitySet Name="Lieferants" EntityType="Self.Lieferant" />
+          <EntitySet Name="Manufacts" EntityType="Self.Manufact" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
+          <EntitySet Name="Organisations" EntityType="Self.Organisation" />
+          <EntitySet Name="PasswordHistories" EntityType="Self.PasswordHistory" />
+          <EntitySet Name="PricingInvoices" EntityType="Self.PricingInvoice" />
+          <EntitySet Name="Quarries" EntityType="Self.Quarry" />
+          <EntitySet Name="Retarders" EntityType="Self.Retarder" />
+          <EntitySet Name="RetarderDelays" EntityType="Self.RetarderDelay" />
+          <EntitySet Name="RetarderTypeCs" EntityType="Self.RetarderTypeC" />
+          <EntitySet Name="RetarderTypeC_EN" EntityType="Self.RetarderTypeC_EN" />
+          <EntitySet Name="SiteMaps" EntityType="Self.SiteMap" />
+          <EntitySet Name="Sprenghelfers" EntityType="Self.Sprenghelfer" />
+          <EntitySet Name="Stations" EntityType="Self.Station" />
+          <EntitySet Name="Surveyors" EntityType="Self.Surveyor" />
+          <EntitySet Name="SystemTypes" EntityType="Self.SystemType" />
+          <EntitySet Name="UserActivities" EntityType="Self.UserActivity" />
+          <EntitySet Name="UserLogActivities" EntityType="Self.UserLogActivity" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="VibMeasurements" EntityType="Self.VibMeasurement" />
+          <EntitySet Name="VibrationMeasDevs" EntityType="Self.VibrationMeasDev" />
+          <EntitySet Name="VibrationMeasurementSites" EntityType="Self.VibrationMeasurementSite" />
+          <EntitySet Name="SyncCredentials" EntityType="Self.SyncCredential" />
+          <AssociationSet Name="BlastProject_FK00" Association="Self.BlastProject_FK00">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="BlastProject" EntitySet="BlastProjects" />
+          </AssociationSet>
+          <AssociationSet Name="BlastProject_FK01" Association="Self.BlastProject_FK01">
+            <End Role="Quarries" EntitySet="Quarries" />
+            <End Role="BlastProject" EntitySet="BlastProjects" />
+          </AssociationSet>
+          <AssociationSet Name="VibMeasurements_FK00" Association="Self.VibMeasurements_FK00">
+            <End Role="BlastProject" EntitySet="BlastProjects" />
+            <End Role="VibMeasurements" EntitySet="VibMeasurements" />
+          </AssociationSet>
+          <AssociationSet Name="Lager_FK00" Association="Self.Lager_FK00">
+            <End Role="Lieferant" EntitySet="Lieferants" />
+            <End Role="Lager" EntitySet="Lagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__CC747E9F31D68045_Organisation_GUID" Association="Self.FK__Users__CC747E9F31D68045_Organisation_GUID">
+            <End Role="Organisations" EntitySet="Organisations" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PricingInvoice_Organisation_GUID" Association="Self.FK_PricingInvoice_Organisation_GUID">
+            <End Role="Organisations" EntitySet="Organisations" />
+            <End Role="PricingInvoices" EntitySet="PricingInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPasswordHistory" Association="Self.FK_UserPasswordHistory">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PasswordHistories" EntitySet="PasswordHistories" />
+          </AssociationSet>
+          <AssociationSet Name="Stations_FK00" Association="Self.Stations_FK00">
+            <End Role="Quarries" EntitySet="Quarries" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="VibrationMeasurementSites_FK00" Association="Self.VibrationMeasurementSites_FK00">
+            <End Role="Quarries" EntitySet="Quarries" />
+            <End Role="VibrationMeasurementSites" EntitySet="VibrationMeasurementSites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_FK_GUID_ID" Association="Self.FK_UserActivity_FK_GUID_ID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActivities" EntitySet="UserActivities" />
+          </AssociationSet>
+          <AssociationSet Name="User_UserRole" Association="Self.User_UserRole">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserRoleSiteMaps" Association="Self.UserRoleSiteMaps">
+            <End Role="SiteMaps" EntitySet="SiteMaps" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlastManagerModelStoreContainer" CdmEntityContainer="BlastManager">
+          <EntitySetMapping Name="AuditLogDetails">
+            <EntityTypeMapping TypeName="BlastManagerModel.AuditLogDetail">
+              <MappingFragment StoreEntitySet="AuditLogDetails">
+                <ScalarProperty Name="AuditLogDetailID" ColumnName="AuditLogDetailID" />
+                <ScalarProperty Name="AduitLogID" ColumnName="AduitLogID" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+                <ScalarProperty Name="OriginalValue" ColumnName="OriginalValue" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogs">
+            <EntityTypeMapping TypeName="BlastManagerModel.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLogs">
+                <ScalarProperty Name="AduitLogID" ColumnName="AduitLogID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlastingEngineers">
+            <EntityTypeMapping TypeName="BlastManagerModel.BlastingEngineer">
+              <MappingFragment StoreEntitySet="BlastingEngineers">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sprengberechtigung" ColumnName="Sprengberechtigung" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="PLZ_Company" ColumnName="PLZ_Company" />
+                <ScalarProperty Name="Street_Company" ColumnName="Street_Company" />
+                <ScalarProperty Name="Site_Company" ColumnName="Site_Company" />
+                <ScalarProperty Name="BE_GUID" ColumnName="BE_GUID" />
+                <ScalarProperty Name="Fromd" ColumnName="Fromd" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlastProjects">
+            <EntityTypeMapping TypeName="BlastManagerModel.BlastProject">
+              <MappingFragment StoreEntitySet="BlastProject">
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Quarry" ColumnName="Quarry" />
+                <ScalarProperty Name="Blastingengineer" ColumnName="Blastingengineer" />
+                <ScalarProperty Name="ProjectFolder" ColumnName="ProjectFolder" />
+                <ScalarProperty Name="ProjectTitle" ColumnName="ProjectTitle" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Drillmeters" ColumnName="Drillmeters" />
+                <ScalarProperty Name="TotalCosts" ColumnName="TotalCosts" />
+                <ScalarProperty Name="CostsExpl" ColumnName="CostsExpl" />
+                <ScalarProperty Name="CostsDet" ColumnName="CostsDet" />
+                <ScalarProperty Name="plannedBurden" ColumnName="plannedBurden" />
+                <ScalarProperty Name="HoleDistance" ColumnName="HoleDistance" />
+                <ScalarProperty Name="MO6File" ColumnName="MO6File" />
+                <ScalarProperty Name="QDEFile" ColumnName="QDEFile" />
+                <ScalarProperty Name="specEcCalc" ColumnName="specEcCalc" />
+                <ScalarProperty Name="exWeight" ColumnName="exWeight" />
+                <ScalarProperty Name="HoleDia" ColumnName="HoleDia" />
+                <ScalarProperty Name="DateOfBlast" ColumnName="DateOfBlast" />
+                <ScalarProperty Name="MSL" ColumnName="MSL" />
+                <ScalarProperty Name="BenchInfo" ColumnName="BenchInfo" />
+                <ScalarProperty Name="Bohrlochtiefe" ColumnName="Bohrlochtiefe" />
+                <ScalarProperty Name="Unterbohrung" ColumnName="Unterbohrung" />
+                <ScalarProperty Name="SprengungDurchgefuehrt" ColumnName="SprengungDurchgefuehrt" />
+                <ScalarProperty Name="RowSeparation" ColumnName="RowSeparation" />
+                <ScalarProperty Name="Overburden" ColumnName="Overburden" />
+                <ScalarProperty Name="CriticalBurden" ColumnName="CriticalBurden" />
+                <ScalarProperty Name="BurdenToReport" ColumnName="BurdenToReport" />
+                <ScalarProperty Name="PlannedSpecEx" ColumnName="PlannedSpecEx" />
+                <ScalarProperty Name="BMH" ColumnName="BMH" />
+                <ScalarProperty Name="BMV" ColumnName="BMV" />
+                <ScalarProperty Name="Tolerance" ColumnName="Tolerance" />
+                <ScalarProperty Name="SearchWidth" ColumnName="SearchWidth" />
+                <ScalarProperty Name="RockDensity" ColumnName="RockDensity" />
+                <ScalarProperty Name="CostsDrilling" ColumnName="CostsDrilling" />
+                <ScalarProperty Name="CostsAdditional" ColumnName="CostsAdditional" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="RocktypeNew" ColumnName="RocktypeNew" />
+                <ScalarProperty Name="MIC" ColumnName="MIC" />
+                <ScalarProperty Name="Complaints" ColumnName="Complaints" />
+                <ScalarProperty Name="Blast_GUID" ColumnName="Blast_GUID" />
+                <ScalarProperty Name="Client_GUID" ColumnName="Client_GUID" />
+                <ScalarProperty Name="Quarry_GUID" ColumnName="Quarry_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="BlastManagerModel.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Kunde" ColumnName="Kunde" />
+                <ScalarProperty Name="Clients_GUID" ColumnName="Clients_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeListInternals">
+            <EntityTypeMapping TypeName="BlastManagerModel.CodeListInternal">
+              <MappingFragment StoreEntitySet="CodeListInternal">
+                <ScalarProperty Name="InternalCode" ColumnName="InternalCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DE" ColumnName="DE" />
+                <ScalarProperty Name="EN" ColumnName="EN" />
+                <ScalarProperty Name="SWE" ColumnName="SWE" />
+                <ScalarProperty Name="CZ" ColumnName="CZ" />
+                <ScalarProperty Name="PL" ColumnName="PL" />
+                <ScalarProperty Name="ES" ColumnName="ES" />
+                <ScalarProperty Name="NO" ColumnName="NO" />
+                <ScalarProperty Name="RU" ColumnName="RU" />
+                <ScalarProperty Name="FR" ColumnName="FR" />
+                <ScalarProperty Name="CN" ColumnName="CN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodePages">
+            <EntityTypeMapping TypeName="BlastManagerModel.CodePage">
+              <MappingFragment StoreEntitySet="CodePage">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Erklärung" ColumnName="Erklärung" />
+                <ScalarProperty Name="TargetHT" ColumnName="TargetHT" />
+                <ScalarProperty Name="InternalCode" ColumnName="InternalCode" />
+                <ScalarProperty Name="LineWidth" ColumnName="LineWidth" />
+                <ScalarProperty Name="PtSize" ColumnName="PtSize" />
+                <ScalarProperty Name="col" ColumnName="col" />
+                <ScalarProperty Name="ColLines" ColumnName="ColLines" />
+                <ScalarProperty Name="MaxLineLength" ColumnName="MaxLineLength" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CostsDetonators">
+            <EntityTypeMapping TypeName="BlastManagerModel.CostsDetonator">
+              <MappingFragment StoreEntitySet="CostsDetonator">
+                <ScalarProperty Name="DetonatorID" ColumnName="DetonatorID" />
+                <ScalarProperty Name="CostsPerUnit" ColumnName="CostsPerUnit" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CostsDualDelays">
+            <EntityTypeMapping TypeName="BlastManagerModel.CostsDualDelay">
+              <MappingFragment StoreEntitySet="CostsDualDelay">
+                <ScalarProperty Name="DualDelayID" ColumnName="DualDelayID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Costs" ColumnName="Costs" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CostsExes">
+            <EntityTypeMapping TypeName="BlastManagerModel.CostsEx">
+              <MappingFragment StoreEntitySet="CostsEx">
+                <ScalarProperty Name="EXplosivID" ColumnName="EXplosivID" />
+                <ScalarProperty Name="CostsPerUnit" ColumnName="CostsPerUnit" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Fuellgrad" ColumnName="Fuellgrad" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="PrimerUse" ColumnName="PrimerUse" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Costsretarders">
+            <EntityTypeMapping TypeName="BlastManagerModel.Costsretarder">
+              <MappingFragment StoreEntitySet="Costsretarder">
+                <ScalarProperty Name="RetarderID" ColumnName="RetarderID" />
+                <ScalarProperty Name="CostsPerUnit" ColumnName="CostsPerUnit" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DBVersions">
+            <EntityTypeMapping TypeName="BlastManagerModel.DBVersion">
+              <MappingFragment StoreEntitySet="DBVersion">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DBVer" ColumnName="DBVer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detonators">
+            <EntityTypeMapping TypeName="BlastManagerModel.Detonator">
+              <MappingFragment StoreEntitySet="Detonators">
+                <ScalarProperty Name="DetonatorID" ColumnName="DetonatorID" />
+                <ScalarProperty Name="DetonatorName" ColumnName="DetonatorName" />
+                <ScalarProperty Name="Delay" ColumnName="Delay" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TypeC" ColumnName="TypeC" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Kosten" ColumnName="Kosten" />
+                <ScalarProperty Name="FaktorBrennGeschw" ColumnName="FaktorBrennGeschw" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetonatorTypes">
+            <EntityTypeMapping TypeName="BlastManagerModel.DetonatorType">
+              <MappingFragment StoreEntitySet="DetonatorType">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TypeLong" ColumnName="TypeLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetonatorTypeCs">
+            <EntityTypeMapping TypeName="BlastManagerModel.DetonatorTypeC">
+              <MappingFragment StoreEntitySet="DetonatorTypeC">
+                <ScalarProperty Name="TypeC" ColumnName="TypeC" />
+                <ScalarProperty Name="TypeCLong" ColumnName="TypeCLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetonatorTypeC_EN">
+            <EntityTypeMapping TypeName="BlastManagerModel.DetonatorTypeC_EN">
+              <MappingFragment StoreEntitySet="DetonatorTypeC_EN">
+                <ScalarProperty Name="TypeC" ColumnName="TypeC" />
+                <ScalarProperty Name="TypeCLong" ColumnName="TypeCLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drillers">
+            <EntityTypeMapping TypeName="BlastManagerModel.Driller">
+              <MappingFragment StoreEntitySet="Drillers">
+                <ScalarProperty Name="DrillerName" ColumnName="DrillerName" />
+                <ScalarProperty Name="Drillers_GUID" ColumnName="Drillers_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrillRigContractors">
+            <EntityTypeMapping TypeName="BlastManagerModel.DrillRigContractor">
+              <MappingFragment StoreEntitySet="DrillRigContractor">
+                <ScalarProperty Name="DrillRigContractorName" ColumnName="DrillRigContractorName" />
+                <ScalarProperty Name="DrillRigContractor_GUID" ColumnName="DrillRigContractor_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DrillRigs">
+            <EntityTypeMapping TypeName="BlastManagerModel.DrillRig">
+              <MappingFragment StoreEntitySet="DrillRigs">
+                <ScalarProperty Name="RigName" ColumnName="RigName" />
+                <ScalarProperty Name="DrillRigs_GUID" ColumnName="DrillRigs_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DualDelays">
+            <EntityTypeMapping TypeName="BlastManagerModel.DualDelay">
+              <MappingFragment StoreEntitySet="DualDelay">
+                <ScalarProperty Name="DualDelayID" ColumnName="DualDelayID" />
+                <ScalarProperty Name="DualDelayName" ColumnName="DualDelayName" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="NominelleZuendzt" ColumnName="NominelleZuendzt" />
+                <ScalarProperty Name="Verzoegerungszeit" ColumnName="Verzoegerungszeit" />
+                <ScalarProperty Name="FaktorBrenngeschwindigkeit" ColumnName="FaktorBrenngeschwindigkeit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExGrößen">
+            <EntityTypeMapping TypeName="BlastManagerModel.ExGrößen">
+              <MappingFragment StoreEntitySet="ExGrößen">
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+                <ScalarProperty Name="ExplosivID" ColumnName="ExplosivID" />
+                <ScalarProperty Name="Diameter" ColumnName="Diameter" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="Gewicht" ColumnName="Gewicht" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Explosives">
+            <EntityTypeMapping TypeName="BlastManagerModel.Explosive">
+              <MappingFragment StoreEntitySet="Explosives">
+                <ScalarProperty Name="ExplosivID" ColumnName="ExplosivID" />
+                <ScalarProperty Name="ExName" ColumnName="ExName" />
+                <ScalarProperty Name="Manufact" ColumnName="Manufact" />
+                <ScalarProperty Name="Velocity" ColumnName="Velocity" />
+                <ScalarProperty Name="ExType" ColumnName="ExType" />
+                <ScalarProperty Name="Dichte" ColumnName="Dichte" />
+                <ScalarProperty Name="DichteVar" ColumnName="DichteVar" />
+                <ScalarProperty Name="Fuellgrad" ColumnName="Fuellgrad" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Energiedichte" ColumnName="Energiedichte" />
+                <ScalarProperty Name="Ident" ColumnName="Ident" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="SpecEnergy" ColumnName="SpecEnergy" />
+                <ScalarProperty Name="ExWaerme" ColumnName="ExWaerme" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CostsPerUnit" ColumnName="CostsPerUnit" />
+                <ScalarProperty Name="UNNo" ColumnName="UNNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExTypes">
+            <EntityTypeMapping TypeName="BlastManagerModel.ExType">
+              <MappingFragment StoreEntitySet="ExType">
+                <ScalarProperty Name="ExTypeLong" ColumnName="ExTypeLong" />
+                <ScalarProperty Name="ExTypeID" ColumnName="ExTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lagers">
+            <EntityTypeMapping TypeName="BlastManagerModel.Lager">
+              <MappingFragment StoreEntitySet="Lager">
+                <ScalarProperty Name="LagerName" ColumnName="LagerName" />
+                <ScalarProperty Name="LagerContactPerson" ColumnName="LagerContactPerson" />
+                <ScalarProperty Name="LagerContactPersonEmail" ColumnName="LagerContactPersonEmail" />
+                <ScalarProperty Name="LagerContactPersonPhone" ColumnName="LagerContactPersonPhone" />
+                <ScalarProperty Name="Lager_GUID" ColumnName="Lager_GUID" />
+                <ScalarProperty Name="Supplier_GUID" ColumnName="Supplier_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lieferants">
+            <EntityTypeMapping TypeName="BlastManagerModel.Lieferant">
+              <MappingFragment StoreEntitySet="Lieferant">
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="LStrasse" ColumnName="LStrasse" />
+                <ScalarProperty Name="LPLZ" ColumnName="LPLZ" />
+                <ScalarProperty Name="LOrt" ColumnName="LOrt" />
+                <ScalarProperty Name="LFax" ColumnName="LFax" />
+                <ScalarProperty Name="LTel" ColumnName="LTel" />
+                <ScalarProperty Name="LContactPerson" ColumnName="LContactPerson" />
+                <ScalarProperty Name="LContactPersonEmail" ColumnName="LContactPersonEmail" />
+                <ScalarProperty Name="LContactPersonPhone" ColumnName="LContactPersonPhone" />
+                <ScalarProperty Name="Lieferant_GUID" ColumnName="Lieferant_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacts">
+            <EntityTypeMapping TypeName="BlastManagerModel.Manufact">
+              <MappingFragment StoreEntitySet="Manufact">
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="BlastManagerModel.Manufacturer">
+              <MappingFragment StoreEntitySet="Manufacturer">
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ManufactName" ColumnName="ManufactName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organisations">
+            <EntityTypeMapping TypeName="BlastManagerModel.Organisation">
+              <MappingFragment StoreEntitySet="Organisations">
+                <ScalarProperty Name="OrganisationID" ColumnName="OrganisationID" />
+                <ScalarProperty Name="OrganisationName" ColumnName="OrganisationName" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PasswordHistories">
+            <EntityTypeMapping TypeName="BlastManagerModel.PasswordHistory">
+              <MappingFragment StoreEntitySet="PasswordHistories">
+                <ScalarProperty Name="PasswordHistoryId" ColumnName="PasswordHistoryId" />
+                <ScalarProperty Name="GUID_User" ColumnName="GUID_User" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PricingInvoices">
+            <EntityTypeMapping TypeName="BlastManagerModel.PricingInvoice">
+              <MappingFragment StoreEntitySet="PricingInvoices">
+                <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+                <ScalarProperty Name="UserPrice" ColumnName="UserPrice" />
+                <ScalarProperty Name="RigUserPrince" ColumnName="RigUserPrince" />
+                <ScalarProperty Name="PriceFileStorageGB" ColumnName="PriceFileStorageGB" />
+                <ScalarProperty Name="OneOffFee" ColumnName="OneOffFee" />
+                <ScalarProperty Name="InvoicingPeriod" ColumnName="InvoicingPeriod" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quarries">
+            <EntityTypeMapping TypeName="BlastManagerModel.Quarry">
+              <MappingFragment StoreEntitySet="Quarries">
+                <ScalarProperty Name="QuarryName" ColumnName="QuarryName" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Gesteinsdichte" ColumnName="Gesteinsdichte" />
+                <ScalarProperty Name="Suchweite" ColumnName="Suchweite" />
+                <ScalarProperty Name="BM_V" ColumnName="BM_V" />
+                <ScalarProperty Name="BM_H" ColumnName="BM_H" />
+                <ScalarProperty Name="PlannedBurden" ColumnName="PlannedBurden" />
+                <ScalarProperty Name="criticalBurden" ColumnName="criticalBurden" />
+                <ScalarProperty Name="Tolerance" ColumnName="Tolerance" />
+                <ScalarProperty Name="berichtspflVorgabe" ColumnName="berichtspflVorgabe" />
+                <ScalarProperty Name="HoleDia" ColumnName="HoleDia" />
+                <ScalarProperty Name="specEx" ColumnName="specEx" />
+                <ScalarProperty Name="RockType" ColumnName="RockType" />
+                <ScalarProperty Name="Kochk" ColumnName="Kochk" />
+                <ScalarProperty Name="Kochb" ColumnName="Kochb" />
+                <ScalarProperty Name="Kochm" ColumnName="Kochm" />
+                <ScalarProperty Name="RowSeparation" ColumnName="RowSeparation" />
+                <ScalarProperty Name="Overburden" ColumnName="Overburden" />
+                <ScalarProperty Name="HoleDistance" ColumnName="HoleDistance" />
+                <ScalarProperty Name="CostsPerDrillMeter" ColumnName="CostsPerDrillMeter" />
+                <ScalarProperty Name="QuarryManagerPath" ColumnName="QuarryManagerPath" />
+                <ScalarProperty Name="CritLocEX" ColumnName="CritLocEX" />
+                <ScalarProperty Name="CritLowCharge" ColumnName="CritLowCharge" />
+                <ScalarProperty Name="Quarry_GUID" ColumnName="Quarry_GUID" />
+                <ScalarProperty Name="Client_GUID" ColumnName="Client_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+                <ScalarProperty Name="DefaultStemming" ColumnName="DefaultStemming" />
+                <ScalarProperty Name="DefaultSubDrill" ColumnName="DefaultSubDrill" />
+                <ScalarProperty Name="DefaultAngle" ColumnName="DefaultAngle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Retarders">
+            <EntityTypeMapping TypeName="BlastManagerModel.Retarder">
+              <MappingFragment StoreEntitySet="Retarder">
+                <ScalarProperty Name="RetarderID" ColumnName="RetarderID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CableLength" ColumnName="CableLength" />
+                <ScalarProperty Name="DelayTime" ColumnName="DelayTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="TypeC" ColumnName="TypeC" />
+                <ScalarProperty Name="Kosten" ColumnName="Kosten" />
+                <ScalarProperty Name="FaktorSchlauchVerz" ColumnName="FaktorSchlauchVerz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RetarderDelays">
+            <EntityTypeMapping TypeName="BlastManagerModel.RetarderDelay">
+              <MappingFragment StoreEntitySet="RetarderDelays">
+                <ScalarProperty Name="RetarderID" ColumnName="RetarderID" />
+                <ScalarProperty Name="Delay" ColumnName="Delay" />
+                <ScalarProperty Name="RetarderDetailID" ColumnName="RetarderDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RetarderTypeCs">
+            <EntityTypeMapping TypeName="BlastManagerModel.RetarderTypeC">
+              <MappingFragment StoreEntitySet="RetarderTypeC">
+                <ScalarProperty Name="TypeC" ColumnName="TypeC" />
+                <ScalarProperty Name="TypeCLong" ColumnName="TypeCLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RetarderTypeC_EN">
+            <EntityTypeMapping TypeName="BlastManagerModel.RetarderTypeC_EN">
+              <MappingFragment StoreEntitySet="RetarderTypeC_EN">
+                <ScalarProperty Name="TypeC" ColumnName="TypeC" />
+                <ScalarProperty Name="TypeCLong" ColumnName="TypeCLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SiteMaps">
+            <EntityTypeMapping TypeName="BlastManagerModel.SiteMap">
+              <MappingFragment StoreEntitySet="SiteMaps">
+                <ScalarProperty Name="SiteMapId" ColumnName="SiteMapId" />
+                <ScalarProperty Name="SiteMapTitle" ColumnName="SiteMapTitle" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Depth" ColumnName="Depth" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="MapPath" ColumnName="MapPath" />
+                <ScalarProperty Name="MinimumRoleType" ColumnName="MinimumRoleType" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ShowInMenu" ColumnName="ShowInMenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sprenghelfers">
+            <EntityTypeMapping TypeName="BlastManagerModel.Sprenghelfer">
+              <MappingFragment StoreEntitySet="Sprenghelfer">
+                <ScalarProperty Name="HelferID" ColumnName="HelferID" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CostsPerHour" ColumnName="CostsPerHour" />
+                <ScalarProperty Name="Sprenghelfer_GUID" ColumnName="Sprenghelfer_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stations">
+            <EntityTypeMapping TypeName="BlastManagerModel.Station">
+              <MappingFragment StoreEntitySet="Stations">
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Station_GUID" ColumnName="Station_GUID" />
+                <ScalarProperty Name="Quarry_GUID" ColumnName="Quarry_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Surveyors">
+            <EntityTypeMapping TypeName="BlastManagerModel.Surveyor">
+              <MappingFragment StoreEntitySet="Surveyors">
+                <ScalarProperty Name="SurveyorName" ColumnName="SurveyorName" />
+                <ScalarProperty Name="Surveyor_GUID" ColumnName="Surveyor_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemTypes">
+            <EntityTypeMapping TypeName="BlastManagerModel.SystemType">
+              <MappingFragment StoreEntitySet="SystemTypes">
+                <ScalarProperty Name="SystemTypeId" ColumnName="SystemTypeId" />
+                <ScalarProperty Name="TypeKey" ColumnName="TypeKey" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActivities">
+            <EntityTypeMapping TypeName="BlastManagerModel.UserActivity">
+              <MappingFragment StoreEntitySet="UserActivities">
+                <ScalarProperty Name="UserActivityID" ColumnName="UserActivityID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="GUID_User" ColumnName="GUID_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogActivities">
+            <EntityTypeMapping TypeName="BlastManagerModel.UserLogActivity">
+              <MappingFragment StoreEntitySet="UserLogActivities">
+                <ScalarProperty Name="UserLoginLogId" ColumnName="UserLoginLogId" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="LoginFrom" ColumnName="LoginFrom" />
+                <ScalarProperty Name="LoginDateTime" ColumnName="LoginDateTime" />
+                <ScalarProperty Name="LogoutDateTime" ColumnName="LogoutDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="BlastManagerModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsADGroup" ColumnName="IsADGroup" />
+                <ScalarProperty Name="RoleType" ColumnName="RoleType" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BlastManagerModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="GUID_User" ColumnName="GUID_User" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserDisplayName" ColumnName="UserDisplayName" />
+                <ScalarProperty Name="IsDeptAdmin" ColumnName="IsDeptAdmin" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="LastLogonDate" ColumnName="LastLogonDate" />
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VibMeasurements">
+            <EntityTypeMapping TypeName="BlastManagerModel.VibMeasurement">
+              <MappingFragment StoreEntitySet="VibMeasurements">
+                <ScalarProperty Name="Vib_LocX" ColumnName="Vib_LocX" />
+                <ScalarProperty Name="Vib_LocY" ColumnName="Vib_LocY" />
+                <ScalarProperty Name="Vib_LocZ" ColumnName="Vib_LocZ" />
+                <ScalarProperty Name="Vib_Distance2D" ColumnName="Vib_Distance2D" />
+                <ScalarProperty Name="Vib_DistanceVert" ColumnName="Vib_DistanceVert" />
+                <ScalarProperty Name="Vib_Lademenge" ColumnName="Vib_Lademenge" />
+                <ScalarProperty Name="Vib_Hole" ColumnName="Vib_Hole" />
+                <ScalarProperty Name="Vib_Xmm" ColumnName="Vib_Xmm" />
+                <ScalarProperty Name="Vib_Ymm" ColumnName="Vib_Ymm" />
+                <ScalarProperty Name="Vib_Zmm" ColumnName="Vib_Zmm" />
+                <ScalarProperty Name="Vib_X_Frequ" ColumnName="Vib_X_Frequ" />
+                <ScalarProperty Name="Vib_Y_Frequ" ColumnName="Vib_Y_Frequ" />
+                <ScalarProperty Name="Vib_Z_Frequ" ColumnName="Vib_Z_Frequ" />
+                <ScalarProperty Name="Vib_VRmm" ColumnName="Vib_VRmm" />
+                <ScalarProperty Name="Vib_VR_Freq" ColumnName="Vib_VR_Freq" />
+                <ScalarProperty Name="Vib_Site" ColumnName="Vib_Site" />
+                <ScalarProperty Name="Vib_SiteID" ColumnName="Vib_SiteID" />
+                <ScalarProperty Name="BlastRef" ColumnName="BlastRef" />
+                <ScalarProperty Name="dB" ColumnName="dB" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="VibMeasurement_GUID" ColumnName="VibMeasurement_GUID" />
+                <ScalarProperty Name="Blast_GUID" ColumnName="Blast_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VibrationMeasDevs">
+            <EntityTypeMapping TypeName="BlastManagerModel.VibrationMeasDev">
+              <MappingFragment StoreEntitySet="VibrationMeasDev">
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="DeviceSN" ColumnName="DeviceSN" />
+                <ScalarProperty Name="LastCalibrated" ColumnName="LastCalibrated" />
+                <ScalarProperty Name="TriggerValue" ColumnName="TriggerValue" />
+                <ScalarProperty Name="VibDev_GUID" ColumnName="VibDev_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VibrationMeasurementSites">
+            <EntityTypeMapping TypeName="BlastManagerModel.VibrationMeasurementSite">
+              <MappingFragment StoreEntitySet="VibrationMeasurementSites">
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="SiteDetail" ColumnName="SiteDetail" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="VibSite_GUID" ColumnName="VibSite_GUID" />
+                <ScalarProperty Name="Quarry_GUID" ColumnName="Quarry_GUID" />
+                <ScalarProperty Name="Organisation_GUID" ColumnName="Organisation_GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SyncCredentials">
+            <EntityTypeMapping TypeName="BlastManagerModel.SyncCredential">
+              <MappingFragment StoreEntitySet="SyncCredentials">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="WinUsrName" ColumnName="WinUsrName" />
+                <ScalarProperty Name="SQLusr" ColumnName="SQLusr" />
+                <ScalarProperty Name="SQLpwd" ColumnName="SQLpwd" />
+                <ScalarProperty Name="AzureFileUsr" ColumnName="AzureFileUsr" />
+                <ScalarProperty Name="AzureFilepwd" ColumnName="AzureFilepwd" />
+                <ScalarProperty Name="OrganisationGUID" ColumnName="OrganisationGUID" />
+                <ScalarProperty Name="SyncTimeInterval" ColumnName="SyncTimeInterval" />
+                <ScalarProperty Name="AzureServerName" ColumnName="AzureServerName" />
+                <ScalarProperty Name="AzureDatabaseName" ColumnName="AzureDatabaseName" />
+                <ScalarProperty Name="LocalRootPath" ColumnName="LocalRootPath" />
+                <ScalarProperty Name="RemoteRootPath" ColumnName="RemoteRootPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="User_UserRole" TypeName="BlastManagerModel.User_UserRole" StoreEntitySet="User_UserRole">
+            <EndProperty Name="UserRoles">
+              <ScalarProperty Name="UserRoleId" ColumnName="UserRoles_UserRoleId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="GUID_User" ColumnName="Users_GUID_User" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserRoleSiteMaps" TypeName="BlastManagerModel.UserRoleSiteMaps" StoreEntitySet="UserRoleSiteMaps">
+            <EndProperty Name="SiteMaps">
+              <ScalarProperty Name="SiteMapId" ColumnName="SiteMaps_SiteMapId" />
+            </EndProperty>
+            <EndProperty Name="UserRoles">
+              <ScalarProperty Name="UserRoleId" ColumnName="UserRoles_UserRoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

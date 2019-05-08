@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="482aa0bd273e455da7d1cb273eb6517a" Name="Diagram1">
+        <EntityTypeShape EntityType="BlastManager.AuditLog" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.AuditLogDetail" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.BlastingEngineer" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.BlastProject" Width="1.5" PointX="7.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Client" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.CodePage" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.CostsDetonator" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.CostsDualDelay" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.CostsEx" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Costsretarder" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.DBVersion" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Driller" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.DrillRigContractor" Width="1.5" PointX="3" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.DrillRig" Width="1.5" PointX="3" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Lager" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Lieferant" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Manufact" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Organisation" Width="1.5" PointX="0.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Quarry" Width="1.5" PointX="5.25" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.SiteMap" Width="1.5" PointX="5.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Sprenghelfer" Width="1.5" PointX="3" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Station" Width="1.5" PointX="7.5" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.Surveyor" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.SystemType" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.UserLogActivity" Width="1.5" PointX="12.25" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.UserRole" Width="1.5" PointX="7.75" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.User" Width="1.5" PointX="10" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.VibMeasurement" Width="1.5" PointX="9.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.VibrationMeasDev" Width="1.5" PointX="3" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlastManager.VibrationMeasurementSite" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="BlastManager.FK_AuditLogAuditLogDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.BlastProject_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.BlastProject_FK01" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.VibMeasurements_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.FK_GUID_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.Quarries_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.Drillers_FK_GUID_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.DrillRigContractor_FK_GUID_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.DrillRigs_FK_GUID_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.Lager_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.fk_User_OrganizationGUID" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.Sprenghelfer_FK_GUID_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.VibrationMeasDev_FK_GUID_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.Stations_FK00" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.FK_UserUserLogActivity" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.User_UserRole" ManuallyRouted="false" />
+        <AssociationConnector Association="BlastManager.UserRoleSiteMap" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
